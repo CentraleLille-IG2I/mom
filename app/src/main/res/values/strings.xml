@@ -1,4 +1,33 @@
 <resources>
+    <!-- <string name=""></string> -->
+    <!-- Default -->
     <string name="app_name">Mom</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Login -->
+    <string name="Login_login">Login</string>
+    <string name="Login_password">Password</string>
+    <string name="Login_connect">Connect</string>
+
+    <!-- Main Screen -->
+    <string name="MainScreen_settings">Settings</string>
+    <string name="MainScreen_create">Create</string>
+
+    <!-- Main Event -->
+    <string name="MainEvent_tasks">Tasks %s</string>
+
+    <!-- Invitation view -->
+    <string name="Invite_send">Send</string>
+
+    <!-- TaskCreation -->
+    <string name="TaskCreation_Create">Create</string>
+
+    <!-- WriteMessage -->
+    <string name="WriteMessage_send">Send</string>
+
+    <!-- TaskGlobal -->
+    <string name="TaskGlobal_nPersonnes">%d Personnes</string>
+    <string name="TaskGlobal_join">Join</string>
+    <string name="TaskGlobal_quit">Quit</string>
+    <string name="TaskGlobal_subTasks">SubTasks (%d)</string>
 </resources>
