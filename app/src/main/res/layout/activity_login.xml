@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Login_login"
         android:id="@+id/textView"
-        android:textSize="40dp"
+        android:textSize="35dp"
         android:layout_marginTop="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -42,10 +42,21 @@
         android:layout_height="wrap_content"
         android:text="@string/Login_password"
         android:id="@+id/textView2"
-        android:textSize="40dp"
+        android:textSize="35dp"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="errTxt"
+        android:id="@+id/textViewErr"
+        android:textSize="30dp"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -53,8 +64,8 @@
         android:text="@string/Login_connect"
         android:id="@+id/button"
         android:textSize="35dp"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/textViewErr"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

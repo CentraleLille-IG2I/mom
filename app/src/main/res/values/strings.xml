@@ -1,5 +1,10 @@
 <resources>
     <!-- <string name=""></string> -->
+
+    <!-- global -->
+    <string name="MOM_SERVER">http://192.168.0.15:8001/api</string>
+    <string name="Global_Err_networkUnavailable">Network Unavailable !</string>
+
     <!-- Default -->
     <string name="app_name">Mom</string>
     <string name="action_settings">Settings</string>
@@ -8,6 +13,9 @@
     <string name="Login_login">Login</string>
     <string name="Login_password">Password</string>
     <string name="Login_connect">Connect</string>
+    <string name="Login_Err_emptyField">Please fill both field</string>
+    <string name="Login_Err_wrongCredential">Wrong credential !</string>
+    <string name="Login_Err_unknown">An Unknow error occured :(</string>
 
     <!-- Main Screen -->
     <string name="MainScreen_settings">Settings</string>
