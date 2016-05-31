@@ -19,9 +19,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookieStore;
+import java.net.HttpCookie;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +49,15 @@ public class MomApi {
     private RequestQueue queue;
     private String mainUrl;
 
+    static private CookieManager manager = null;
+
     public MomApi(Context c) {
+        if (manager==null) {
+            Log.d("@", "cookie manager renewed");
+            manager = new CookieManager();
+            CookieHandler.setDefault(manager);
+        }
+
         queue = Volley.newRequestQueue(c);
         mainUrl = c.getString(R.string.MOM_SERVER);
 
@@ -48,8 +67,14 @@ public class MomApi {
     private <T extends Response.Listener<JSONObject> & Response.ErrorListener> void request (int m, String res, final HashMap<String, String> params, T c) {
         // Request a string response from the provided URL..
         final HashMap<String, String> mParams = params;
+        HttpCookie cookie = getCookie();
+        Log.d("@", "cookie : "+cookie);
+        if (cookie!=null)
+            mParams.put(cookie.getName(), cookie.getValue());
+
         Log.d("@", mParams.toString());
         Log.d("@", mainUrl + res);
+
         JSONPostRequest stringRequest = new JSONPostRequest(m,
                                                             mainUrl+res,
                                                             params,
@@ -58,6 +83,14 @@ public class MomApi {
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    private HttpCookie getCookie() {
+        for (HttpCookie c : manager.getCookieStore().getCookies()) {
+            if (c.getName().equals("sessionid"))
+                return c;
+        }
+        return null;
     }
 
     public User getUser(int userId) throws ExecutionException, InterruptedException, JSONException {
@@ -87,6 +120,19 @@ public class MomApi {
                         Log.d("@", list.getJSONObject(i).toString());
                         ret.add(new EventStatus(list.getJSONObject(i)));
                     }
+                    Collections.sort(ret);
+                    /*Collections.sort(ret, new Comparator<EventStatus>() {
+                        @Override
+                        public int compare(EventStatus lhs, EventStatus rhs) {
+                            DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:S", Locale.ENGLISH);
+                            try {
+                                return format.parse(lhs.getCreationDate()).compareTo(format.parse(rhs.getCreationDate()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                return 0;
+                            }
+                        }
+                    });*/
                     this.callback.onSuccess(ret);
                 } catch (JSONException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
@@ -137,5 +183,24 @@ public class MomApi {
         });
     }
 
-    public void createEvent() {}
+    public void createEvent(String eventName, String eventDate, String eventPlace, String eventDescription, RequestCallback<Event> callback) {
+        HashMap<String, String> p = new HashMap<String, String>();
+        p.put("name", eventName);
+        p.put("description", eventDescription);
+        p.put("date", eventDate);
+        p.put("place", eventPlace);
+
+        request(Request.Method.POST, "/event/create", p, new AnswerParser<Event>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("@", response.toString());
+                    this.callback.onSuccess(new Event(response));
+                } catch (JSONException e) {
+                    Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                }
+            }
+        });
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.richou.mom;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,17 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-
-import com.android.volley.VolleyError;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import MomApi.Model.Event;
 import MomApi.RequestCallback;
@@ -33,6 +24,8 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
 
     private int userId;
 
+    private MomApi m;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +33,7 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
 
         userId = getIntent().getExtras().getInt("userId");
 
-        MomApi m = new MomApi(this);
-
-        m.getUserEvents(userId, this);
+        m = new MomApi(this);
 
         lv = (ListView)findViewById(R.id.listView);
         bSettings = (Button)findViewById(R.id.button2);
@@ -52,26 +43,17 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
         bSettings.setOnClickListener(this);
         bCreate.setOnClickListener(this);
 
+        refresh();
+    }
+
+    private void refresh() {
+        m.getUserEvents(userId, this);
     }
 
     @Override
     public void onSuccess(List<Event> arg) {
         Log.d("@", "received success");
 
-
-        //List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-        //HashMap<String, String> elem;
-
-        /*for (Event e : arg) {
-            elem = new HashMap<>();
-            elem.put("txt1", e.getName());
-            elem.put("txt2", e.getDescription());
-            list.add(elem);
-        }*/
-
-        //Log.d("@", list.toString());
-
-        //ListAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[] {"txt1","txt2"}, new int[] {android.R.id.text1, android.R.id.text2});
         ListAdapter adapter = new MainScreen_eventListAdapter(this, arg);
         lv.setAdapter(adapter);
     }
@@ -84,8 +66,12 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Event event = (Event)parent.getItemAtPosition(position);
+        startMainEventActivity(event);
+    }
+
+    private void startMainEventActivity(Event e) {
         Intent i = new Intent(this, MainEvent.class);
-        i.putExtra("event", event);
+        i.putExtra("event", e);
         startActivity(i);
     }
 
@@ -98,8 +84,26 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
             case R.id.button4:
                 //Log.d("@", "Create Button unimplemented !");
                 Intent i = new Intent(this, EventCreation.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1){
+            if (resultCode == Activity.RESULT_OK) {
+                Log.d("@", "activity finished ok");
+
+                Event event = (Event)data.getSerializableExtra("createdEvent");
+                startMainEventActivity(event);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.d("@", "activity canceled");
+                refresh();
+            }
+        }
+        else
+            refresh();
     }
 }

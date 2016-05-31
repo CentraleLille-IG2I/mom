@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+
 import MomApi.RequestCallback;
 import MomApi.MomApi;
 import MomApi.MomErrors;
@@ -17,6 +20,7 @@ public class Login extends AppCompatActivity implements RequestCallback<Integer>
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

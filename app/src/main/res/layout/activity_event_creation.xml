@@ -39,7 +39,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
+        android:inputType="datetime"
         android:ems="10"
         android:textSize="15dp"
         android:id="@+id/editText8"

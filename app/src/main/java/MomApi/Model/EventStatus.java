@@ -1,12 +1,19 @@
 package MomApi.Model;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Created by Robin on 30/05/2016.
  */
-public class EventStatus {
+public class EventStatus implements Comparable<EventStatus> {
     private int id;
     private String content;
     private String creationDate;
@@ -56,5 +63,17 @@ public class EventStatus {
 
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
+    }
+
+    @Override
+    public int compareTo(EventStatus another) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+        try {
+            return format.parse(another.getCreationDate()).compareTo(format.parse(this.getCreationDate()));
+        } catch (ParseException e) {
+            Log.d("@", "DateParseError" + e);
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

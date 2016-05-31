@@ -1,5 +1,7 @@
 package MomApi;
 
+import android.util.Log;
+
 import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
@@ -29,6 +31,7 @@ public class AnswerParser <T> implements Response.Listener<JSONObject>, Response
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        Log.d("@", error.toString());
         if (error.networkResponse != null && error.networkResponse.statusCode == HttpsURLConnection.HTTP_UNAUTHORIZED)
             callback.onError(MomErrors.HTTP_401);
         else if (error instanceof NoConnectionError || error instanceof TimeoutError)

@@ -2,7 +2,7 @@
     <!-- <string name=""></string> -->
 
     <!-- global -->
-    <string name="MOM_SERVER">http://192.168.70.209:8001/api</string>
+    <string name="MOM_SERVER">http://192.168.0.15:8000/api</string>
     <string name="Global_Err_networkUnavailable">Network Unavailable !</string>
     <string name="Global_Err_unknown">An Unknow error occured :(</string>
 

@@ -26,7 +26,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback<List
         event = (Event)getIntent().getSerializableExtra("event");
 
         ((TextView)findViewById(R.id.textView3)).setText(event.getName());
-        ((TextView)findViewById(R.id.textView3)).setText("topkek");
+        //((TextView)findViewById(R.id.textView3)).setText("topkek");
 
         lv = (ListView)findViewById(R.id.listView2);
         MomApi m = new MomApi(this);
@@ -42,6 +42,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback<List
 
     @Override
     public void onError(MomErrors err) {
-        Log.d("@", "Get some errors");
+        Log.d("@", "Get some errors"+err);
+
     }
 }
