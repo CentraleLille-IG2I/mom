@@ -7,5 +7,7 @@ import org.json.JSONObject;
 /**
  * Created by Robin on 25/05/2016.
  */
-public interface RequestCallback extends Response.Listener<JSONObject>, Response.ErrorListener{
+public interface RequestCallback <T> {
+    public void onSuccess(T arg);
+    public void onError(MomErrors err);
 }

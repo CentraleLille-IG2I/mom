@@ -10,25 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import MomApi.RequestCallback;
-
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import javax.net.ssl.HttpsURLConnection;
-
 import MomApi.MomApi;
+import MomApi.MomErrors;
 
-public class Login extends AppCompatActivity implements View.OnClickListener, RequestCallback {
+public class Login extends AppCompatActivity implements RequestCallback<Integer>, View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +32,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Re
 
         if (user.length() == 0 || pass.length() == 0)
             setErrorMessage(getString(R.string.Login_Err_emptyField));
-        else
+        else {
             m.login(user, pass, this);
+        }
     }
 
     private void setErrorMessage(String t)
@@ -59,32 +45,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Re
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
-
-
-        if (error.networkResponse != null && error.networkResponse.statusCode == HttpsURLConnection.HTTP_UNAUTHORIZED)
-            setErrorMessage(getString(R.string.Login_Err_wrongCredential));
-        else if (error instanceof NoConnectionError || error instanceof TimeoutError)
-            setErrorMessage(getString(R.string.Global_Err_networkUnavailable));
-        else
-            setErrorMessage(getString(R.string.Login_Err_unknown));
+    public void onSuccess(Integer arg) {
+        Intent i = new Intent(this, MainScreen.class);
+        i.putExtra("userId", arg);
+        startActivity(i);
     }
 
     @Override
-    public void onResponse(JSONObject response) {
-        Log.d("@", response.toString());
-
-
-        try {
-            Log.d("@", response.getString("status"));
-            if (response.getString("status").equals("success")) {
-                Log.d("@", "logged in");
-                response.getString("user_pk");
-                startActivity(new Intent(this, MainScreen.class));
-            }
-        } catch (JSONException e) {
-            Log.d("@", "MalformedJSON");
-            setErrorMessage(getString(R.string.Login_Err_unknown));
+    public void onError(MomErrors err) {
+        switch (err) {
+            case HTTP_401:
+                setErrorMessage(getString(R.string.Login_Err_wrongCredential));
+                break;
+            case MALFORMED_DATA:
+                setErrorMessage(getString(R.string.Global_Err_unknown));
+                break;
+            case NETWORK_UNAVAILABLE:
+                setErrorMessage(getString(R.string.Global_Err_networkUnavailable));
+                break;
+            default:
+                setErrorMessage(getString(R.string.Global_Err_unknown));
+                break;
         }
     }
 }
