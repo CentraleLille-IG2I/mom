@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity implements RequestCallback<Integer>
             case R.id.button_register:
                 Log.d("@", "Register");
                 Intent i = new Intent(this, Register.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
                 break;
             default:
                 Log.e("@", "Unknown onClick view");

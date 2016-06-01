@@ -1,5 +1,6 @@
 package com.example.richou.mom;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import MomApi.Model.User;
 import MomApi.MomApi;
 import MomApi.RequestCallback;
 import MomApi.MomErrors;
@@ -46,17 +46,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                 Log.d("@", "Register - Submit");
 
                 if(email.getText().length() == 0) {
-                    Toast.makeText(getBaseContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.Register_empty_email, Toast.LENGTH_SHORT).show();
                 }
 
                 if(!pass.getText().toString().equals(passBis.getText().toString())) {
-                    Toast.makeText(getBaseContext(), "Passwords are different", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.Register_different_pass, Toast.LENGTH_SHORT).show();
                 }
 
                 if(pass.getText().length() == 0) {
-                    Toast.makeText(getBaseContext(), "Password cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.Register_empty_password, Toast.LENGTH_SHORT).show();
                 }
-                
+
                 Log.d("@", firstName.getText().toString()+
                         lastName.getText().toString()+
                         email.getText().toString()+
@@ -73,13 +73,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onSuccess(Integer arg) {
-        Intent i = new Intent(this, MainScreen.class);
-        i.putExtra("userId", arg);
-        startActivity(i);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("userId", arg);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 
     @Override
     public void onError(MomErrors err) {
-        Toast.makeText(getBaseContext(), "Something wrong happened.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.Register_error, Toast.LENGTH_SHORT).show();
     }
 }
