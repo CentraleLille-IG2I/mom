@@ -45,4 +45,5 @@
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
     <string name="TaskGlobal_subTasks">SubTasks (%d)</string>
+    <string name="Login_register">Register</string>
 </resources>
