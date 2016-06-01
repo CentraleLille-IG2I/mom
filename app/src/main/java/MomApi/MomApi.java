@@ -203,4 +203,25 @@ public class MomApi {
             }
         });
     }
+
+    public void register(String firstName, String lastName, String email, String phone, String password, RequestCallback<Integer> callback) {
+        HashMap<String, String> p = new HashMap<String, String>();
+        p.put("first_name", firstName);
+        p.put("last_name", lastName);
+        p.put("email", email);
+        p.put("phone_number", phone);
+        p.put("password", password);
+        request(Request.Method.POST, "/register", p, new AnswerParser<Integer>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("@", response.toString());
+                    this.callback.onSuccess(new Integer(response.getInt("pk_user")));
+                } catch (JSONException e) {
+                    Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                }
+            }
+        });
+    }
 }

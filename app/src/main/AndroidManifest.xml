@@ -28,7 +28,8 @@
         <activity android:name=".TaskCreation" />
         <activity android:name=".WriteMessage" />
         <activity android:name=".TaskGlobal" />
-        <activity android:name=".EventCreation"></activity>
+        <activity android:name=".EventCreation" />
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>

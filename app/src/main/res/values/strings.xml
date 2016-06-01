@@ -16,6 +16,7 @@
     <string name="Login_connect">Connect</string>
     <string name="Login_Err_emptyField">Please fill both field</string>
     <string name="Login_Err_wrongCredential">Wrong credential !</string>
+    <string name="Login_register">Register</string>
 
     <!-- Main Screen -->
     <string name="MainScreen_settings">Settings</string>
@@ -45,4 +46,16 @@
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
     <string name="TaskGlobal_subTasks">SubTasks (%d)</string>
+
+    <!-- Register -->
+    <string name="Register_empty_email">Email cannot be empty</string>
+    <string name="Register_different_pass">Passwords are different</string>
+    <string name="Register_empty_password">Password cannot be empty</string>
+    <string name="Register_error">Something wrong happened.</string>
+    <string name="Register_first_name">First name</string>
+    <string name="Register_email">E-mail</string>
+    <string name="Register_phone">Phone number</string>
+    <string name="Register_password">Password</string>
+    <string name="Register_confirm">Confirm</string>
+    <string name="Register_submit">Register</string>
 </resources>
