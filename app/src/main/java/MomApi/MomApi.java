@@ -261,4 +261,30 @@ public class MomApi {
             }
         });
     }
+
+    public void getUserByEmail(String email, RequestCallback<User> callback) {
+        HashMap<String, String> p = new HashMap<>();
+
+        p.put("email", email);
+        request(Request.Method.POST, "/user/search", p, new AnswerParser<User>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("@", "getUserByEmail: "+response);
+                try {
+                    JSONObject user = response.getJSONObject("user");
+                    if (!user.isNull("pk")) {
+                        callback.onSuccess(new User(user.getInt("pk"),
+                                user.getString("first_name"),
+                                user.getString("last_name")));
+                    } else {
+                        callback.onSuccess(null);
+                    }
+                }
+                catch(JSONException e) {
+                    Log.e("@", e.getMessage());
+                    callback.onError(MomErrors.MALFORMED_DATA);
+                }
+            }
+        });
+    }
 }
