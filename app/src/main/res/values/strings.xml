@@ -20,7 +20,7 @@
 
     <!-- Main Screen -->
     <string name="MainScreen_settings">Settings</string>
-    <string name="MainScreen_create">Create</string>
+    <string name="title_activity_main_screen">Events</string>
 
     <!-- Main Event -->
     <string name="MainEvent_tasks">Tasks %s</string>
