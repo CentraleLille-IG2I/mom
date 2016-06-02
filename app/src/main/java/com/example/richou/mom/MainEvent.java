@@ -1,48 +1,115 @@
 package com.example.richou.mom;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.*;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import MomApi.Model.Event;
-import MomApi.Model.EventStatus;
-import MomApi.MomApi;
-import MomApi.RequestCallback;
-import MomApi.MomErrors;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.EventStatus;
+import MomApiPackage.Model.User;
+import MomApiPackage.MomApi;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomErrors;
 
-public class MainEvent extends AppCompatActivity implements RequestCallback<List<EventStatus>> {
+public class MainEvent extends AppCompatActivity implements RequestCallback, View.OnClickListener {
     private Event event;
+    private User user;
+    private MomApi m;
+
     private android.widget.ListView lv;
+    private Button writeStatus;
+    private Button task;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_event);
 
+        m = new MomApi(this);
+
         event = (Event)getIntent().getSerializableExtra("event");
+        user = (User)getIntent().getSerializableExtra("user");
 
         ((TextView)findViewById(R.id.textView3)).setText(event.getName());
-        //((TextView)findViewById(R.id.textView3)).setText("topkek");
+        ((TextView)findViewById(R.id.textViewEventDate)).setText(String.format(getString(R.string.MainEvent_date), event.getDate()));
+        ((TextView)findViewById(R.id.textViewEventPlace)).setText(String.format(getString(R.string.MainEvent_place), event.getPlace()));
+
+        writeStatus = ((Button) findViewById(R.id.MainEvent_writeStatus));
+        task = ((Button) findViewById(R.id.button6));
+        if (!event.canOrganise(user)) {
+            writeStatus.setVisibility(View.GONE);
+            task.setVisibility(View.GONE);
+        }
+        else {
+            writeStatus.setOnClickListener(this);
+            task.setOnClickListener(this);
+        }
+
 
         lv = (ListView)findViewById(R.id.listView2);
-        MomApi m = new MomApi(this);
+        lv.setAdapter(new MainEvent_EventStatusListAdapter(this, new ArrayList<EventStatus>()));
+
+        refresh();
+    }
+
+    private void refresh() {
         m.getEventStatuses(event.getId(), this);
+        /*EfficientAdapter adp = (EfficientAdapter) QuickList.getAdapter();
+        adp.UpdateDataList(EfficientAdapter.MY_DATA);
+        adp.notifyDataSetChanged();
+        QuickList.invalidateViews();
+        QuickList.scrollBy(0, 0);*/
     }
 
     @Override
-    public void onSuccess(List<EventStatus> arg) {
-        Log.d("@", "get success");
-        ListAdapter adapter = new MainEvent_EventStatusListAdapter(this, arg);
-        lv.setAdapter(adapter);
+    public void onSuccess(Object obj) {
+        if (obj instanceof List) {
+            Log.d("@", "get success");
+            ((MainEvent_EventStatusListAdapter) lv.getAdapter()).updateData((List)obj);
+        }
+        else if (obj instanceof EventStatus) {
+
+        }
     }
 
     @Override
     public void onError(MomErrors err) {
         Log.d("@", "Get some errors"+err);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == writeStatus) {
+            Intent i = new Intent(this, WriteMessage.class);
+            i.putExtra("event", event);
+            i.putExtra("subTitle", getString(R.string.WriteMessage_eventStatusCreationSubTitle));
+            startActivityForResult(i, 1);
+        }
+        else {
+            Intent i = new Intent(this, TaskList.class);
+            i.putExtra("event", event);
+            i.putExtra("user", user);
+            startActivityForResult(i, 2);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                m.createEventStatus(event, data.getExtras().getString("message"), this);
+            }
+        }
+        refresh();
     }
 }

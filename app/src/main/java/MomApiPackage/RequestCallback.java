@@ -1,8 +1,4 @@
-package MomApi;
-
-import com.android.volley.Response;
-
-import org.json.JSONObject;
+package MomApiPackage;
 
 /**
  * Created by Robin on 25/05/2016.

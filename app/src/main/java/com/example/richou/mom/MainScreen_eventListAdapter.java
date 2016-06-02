@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import MomApi.Model.Event;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.EventStatus;
 
 /**
  * Created by Robin on 29/05/2016.
@@ -55,5 +53,10 @@ public class MainScreen_eventListAdapter extends BaseAdapter {
         ((TextView)((ViewGroup)view).getChildAt(1)).setText(events.get(position).getDescription());
 
         return view;
+    }
+
+    public void updateData(List<Event> events) {
+        this.events = events;
+        this.notifyDataSetChanged();
     }
 }

@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Name"
+        android:text="@string/TaskCreation_taskName"
         android:id="@+id/textView6"
         android:textSize="35dp"
         android:layout_below="@+id/include"
@@ -30,15 +30,36 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TaskCreation_taskDescription"
+        android:textSize="35dp"
+        android:id="@+id/textView4"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editText5"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TaskCreation_editTextDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView4"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/TaskCreation_Create"
         android:id="@+id/button7"
         android:textSize="30dp"
-        android:layout_below="@+id/editText5"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_marginBottom="66dp" />
 
 
 </RelativeLayout>

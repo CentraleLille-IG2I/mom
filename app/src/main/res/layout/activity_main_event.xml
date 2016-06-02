@@ -40,15 +40,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView2"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/view2" />
+        android:layout_below="@+id/view2"
+        android:layout_above="@+id/MainEvent_writeStatus"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="topkekekek"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/view"
-        android:layout_above="@+id/listView2" />
+        android:text="@string/EventCreation_date"
+        android:textSize="18dp"
+        android:id="@+id/textViewEventDate"
+        android:layout_below="@+id/view"/>
+        <!--android:layout_above="@+id/listView2"-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/EventCreation_place"
+        android:textSize="18dp"
+        android:id="@+id/textViewEventPlace"
+        android:layout_below="@+id/textViewEventDate" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/MainEvent_writeStatus"
+        android:textSize="20dp"
+        android:id="@+id/MainEvent_writeStatus"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

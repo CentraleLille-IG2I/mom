@@ -9,29 +9,30 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import MomApiPackage.Model.EventStatus;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.TaskComment;
 
 /**
- * Created by Robin on 30/05/2016.
+ * Created by Robin on 02/06/2016.
  */
-public class MainEvent_EventStatusListAdapter extends BaseAdapter {
-    private List<EventStatus> eventStatuses;
+public class TaskGlobal_commentAdapter extends BaseAdapter {
+    private List<TaskComment> taskComments;
     private LayoutInflater mInflater;
 
-    public MainEvent_EventStatusListAdapter(Context context, List<EventStatus> eventStatuses) {
+    public TaskGlobal_commentAdapter(Context context, List<TaskComment> taskComments) {
         super();
-        this.eventStatuses = eventStatuses;
+        this.taskComments = taskComments;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return eventStatuses.size();
+        return taskComments.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return eventStatuses.get(position);
+        return taskComments.get(position);
     }
 
     @Override
@@ -46,16 +47,16 @@ public class MainEvent_EventStatusListAdapter extends BaseAdapter {
         if(convertView != null)
             view  = convertView;
         else
-            view = mInflater.inflate(R.layout.simple_text, null);
+            view = mInflater.inflate(R.layout.simple_line, null);
 
-        ((TextView)((ViewGroup)view).getChildAt(0)).setText(eventStatuses.get(position).getContent());
+        ((TextView)((ViewGroup)view).getChildAt(0)).setText(taskComments.get(position).getContent());
         //((TextView)((ViewGroup)view).getChildAt(1)).setText(events.get(position).getDescription());
 
         return view;
     }
 
-    public void updateData(List<EventStatus> eventStatuses) {
-        this.eventStatuses = eventStatuses;
+    public void updateData(List<TaskComment> taskComments) {
+        this.taskComments = taskComments;
         this.notifyDataSetChanged();
     }
 }

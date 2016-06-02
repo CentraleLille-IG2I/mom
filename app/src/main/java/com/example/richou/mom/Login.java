@@ -9,20 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
+import MomApiPackage.Model.User;
+import MomApiPackage.MomApi;
+import MomApiPackage.MomErrors;
+import MomApiPackage.RequestCallback;
 
-import MomApi.RequestCallback;
-import MomApi.MomApi;
-import MomApi.MomErrors;
-
-public class Login extends AppCompatActivity implements RequestCallback<Integer>, View.OnClickListener {
+public class Login extends AppCompatActivity implements RequestCallback, View.OnClickListener {
+    private MomApi m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        m = new MomApi(this);
 
         Button b = (Button)findViewById(R.id.button);
         b.setOnClickListener(this);
@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity implements RequestCallback<Integer>
 
     public void onClick(View v) {
         Log.d("@", "test2");
-        MomApi m = new MomApi(this);
+
         String user = ((EditText)findViewById(R.id.editText)).getText().toString();
         String pass = ((EditText)findViewById(R.id.editText2)).getText().toString();
 
@@ -49,10 +49,18 @@ public class Login extends AppCompatActivity implements RequestCallback<Integer>
     }
 
     @Override
-    public void onSuccess(Integer arg) {
-        Intent i = new Intent(this, MainScreen.class);
-        i.putExtra("userId", arg);
-        startActivity(i);
+    public void onSuccess(Object obj) {
+        //m.getUser(arg, this);
+        if (obj instanceof User) {
+            Intent i = new Intent(this, MainScreen.class);
+            i.putExtra("user", (User)obj);
+            startActivity(i);
+        }
+        else
+        {
+            m.getUser((int)obj, this);
+        }
+
     }
 
     @Override

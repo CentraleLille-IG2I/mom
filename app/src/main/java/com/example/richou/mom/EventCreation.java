@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import MomApi.Model.Event;
-import MomApi.MomApi;
-import MomApi.RequestCallback;
-import MomApi.MomErrors;
+import MomApiPackage.Model.Event;
+import MomApiPackage.MomApi;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomErrors;
 
 public class EventCreation extends AppCompatActivity implements View.OnClickListener, RequestCallback<Event> {
     Button bCreate;

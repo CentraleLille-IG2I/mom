@@ -4,7 +4,7 @@
     <!-- global -->
     <string name="MOM_SERVER">http://192.168.0.15:8000/api</string>
     <string name="Global_Err_networkUnavailable">Network Unavailable !</string>
-    <string name="Global_Err_unknown">An Unknow error occured :(</string>
+    <string name="Global_Err_unknown">An Unknown error occured :(</string>
 
     <!-- Default -->
     <string name="app_name">Mom</string>
@@ -23,6 +23,9 @@
 
     <!-- Main Event -->
     <string name="MainEvent_tasks">Tasks %s</string>
+    <string name="MainEvent_date">Date : %s</string>
+    <string name="MainEvent_place">Place : %s</string>
+    <string name="MainEvent_writeStatus">New status</string>
 
     <!-- Event Creation -->
     <string name="EventCreation_name">Event Name</string>
@@ -36,13 +39,26 @@
 
     <!-- TaskCreation -->
     <string name="TaskCreation_Create">Create</string>
+    <string name="TaskCreation_taskName">Task name</string>
+    <string name="TaskCreation_taskDescription">Description</string>
 
     <!-- WriteMessage -->
-    <string name="WriteMessage_send">Send</string>
+    <string name="WriteMessage_send">Post</string>
+    <string name="WriteMessage_eventStatusCreationSubTitle">New event status</string>
+    <string name="WriteMessage_taskCommentSubTitle">New task comment</string>
 
     <!-- TaskGlobal -->
     <string name="TaskGlobal_nPersonnes">%d Personnes</string>
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
-    <string name="TaskGlobal_subTasks">SubTasks (%d)</string>
+    <!--<string name="TaskGlobal_subTasks">SubTasks (%d)</string>-->
+    <string name="TaskGlobal_createSubTask">New subtask</string>
+    <string name="TaskGlobal_comment">New comment</string>
+
+    <!-- TaskList -->
+    <string name="TaskList_newTask">New task</string>
+
+    <!-- TaskItemCreate -->
+    <string name="TaskItemCreate_nameHint">Item Name</string>
+    <string name="TaskItemCreate_createButton">Create item</string>
 </resources>

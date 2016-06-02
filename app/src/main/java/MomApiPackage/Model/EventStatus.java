@@ -1,10 +1,11 @@
-package MomApi.Model;
+package MomApiPackage.Model;
 
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +14,7 @@ import java.util.Locale;
 /**
  * Created by Robin on 30/05/2016.
  */
-public class EventStatus implements Comparable<EventStatus> {
+public class EventStatus implements Comparable<EventStatus>, Serializable {
     private int id;
     private String content;
     private String creationDate;
@@ -67,7 +68,7 @@ public class EventStatus implements Comparable<EventStatus> {
 
     @Override
     public int compareTo(EventStatus another) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
         try {
             return format.parse(another.getCreationDate()).compareTo(format.parse(this.getCreationDate()));
         } catch (ParseException e) {

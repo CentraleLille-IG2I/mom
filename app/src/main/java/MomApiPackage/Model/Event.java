@@ -1,4 +1,6 @@
-package MomApi.Model;
+package MomApiPackage.Model;
+
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +18,8 @@ public class Event implements Serializable {
     private String place;
     private String creationDate;
     private int creatorId;
+
+    private Rank rank;
 
     public Event(int id, String name, String description, String date, String place, String creationDate, int creatorId) {
         this.id = id;
@@ -35,6 +39,28 @@ public class Event implements Serializable {
         this.place = json.getString("place_event");
         this.creationDate = json.getString("date_created");
         this.creatorId = json.getInt("pk_user_created_by");
+
+        JSONObject o = json.getJSONObject("rank");
+        Log.d("@", "rankLength : " + o.length() + "\n" + o);
+        if (o.length()==0)
+            rank = null;
+        else
+            rank = new Rank(o);
+    }
+
+    public boolean canOrganise(User u) {
+        if (rank == null){
+            if (creatorId == u.getId())
+                return true;
+            else
+                return false; //not suppose to append
+        }
+        else {
+            if (rank.isOrganiser())
+                return true;
+            else
+                return false;
+        }
     }
 
     public int getId() {
@@ -61,7 +87,7 @@ public class Event implements Serializable {
         this.description = description;
     }
 
-    public String getDatre() {
+    public String getDate() {
         return date;
     }
 

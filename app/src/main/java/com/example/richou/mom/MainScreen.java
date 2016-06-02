@@ -10,19 +10,22 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import MomApi.Model.Event;
-import MomApi.RequestCallback;
-import MomApi.MomApi;
-import MomApi.MomErrors;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.User;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomApi;
+import MomApiPackage.MomErrors;
 
 public class MainScreen extends AppCompatActivity implements RequestCallback<List<Event>>, AdapterView.OnItemClickListener, View.OnClickListener {
     private ListView lv;
     private Button bSettings;
     private Button bCreate;
 
-    private int userId;
+    private User user;
 
     private MomApi m;
 
@@ -31,7 +34,7 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        userId = getIntent().getExtras().getInt("userId");
+        user = (User)getIntent().getSerializableExtra("user");
 
         m = new MomApi(this);
 
@@ -43,19 +46,19 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
         bSettings.setOnClickListener(this);
         bCreate.setOnClickListener(this);
 
+        lv.setAdapter(new MainScreen_eventListAdapter(this, new ArrayList<Event>()));
         refresh();
     }
 
     private void refresh() {
-        m.getUserEvents(userId, this);
+        m.getUserEvents(user, this);
     }
 
     @Override
     public void onSuccess(List<Event> arg) {
         Log.d("@", "received success");
 
-        ListAdapter adapter = new MainScreen_eventListAdapter(this, arg);
-        lv.setAdapter(adapter);
+        ((MainScreen_eventListAdapter)lv.getAdapter()).updateData(arg);
     }
 
     @Override
@@ -72,7 +75,8 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     private void startMainEventActivity(Event e) {
         Intent i = new Intent(this, MainEvent.class);
         i.putExtra("event", e);
-        startActivity(i);
+        i.putExtra("user", user);
+        startActivityForResult(i, 2);
     }
 
     @Override
