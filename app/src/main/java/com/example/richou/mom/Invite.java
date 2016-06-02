@@ -6,20 +6,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import MomApi.Model.Event;
-import MomApi.Model.Invitation;
-import MomApi.Model.Rank;
-import MomApi.Model.User;
-import MomApi.MomApi;
-import MomApi.RequestCallback;
-import MomApi.MomErrors;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.Invitation;
+import MomApiPackage.Model.Rank;
+import MomApiPackage.Model.User;
+import MomApiPackage.MomApi;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomErrors;
 
 public class Invite extends AppCompatActivity implements View.OnClickListener, RequestCallback<Invitation>{
     private Event event;

@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import MomApi.MomApi;
-import MomApi.RequestCallback;
-import MomApi.MomErrors;
+import MomApiPackage.MomApi;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomErrors;
 
 public class Register extends AppCompatActivity implements View.OnClickListener, RequestCallback<Integer> {
     EditText firstName, lastName, email, phone, pass, passBis;

@@ -6,17 +6,10 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.example.richou.mom.R;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
 import javax.net.ssl.HttpsURLConnection;
-
-import MomApi.Model.Invitation;
 
 /**
  * Created by Robin on 29/05/2016.

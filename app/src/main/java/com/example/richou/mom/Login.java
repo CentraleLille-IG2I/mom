@@ -14,11 +14,7 @@ import MomApiPackage.MomApi;
 import MomApiPackage.MomErrors;
 import MomApiPackage.RequestCallback;
 
-import MomApi.RequestCallback;
-import MomApi.MomApi;
-import MomApi.MomErrors;
-
-public class Login extends AppCompatActivity implements RequestCallback<Integer>, View.OnClickListener {
+public class Login extends AppCompatActivity implements RequestCallback, View.OnClickListener {
     private MomApi m;
     
     @Override

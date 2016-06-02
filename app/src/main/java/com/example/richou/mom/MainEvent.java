@@ -90,33 +90,32 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
 
     @Override
     public void onError(MomErrors err) {
-        Log.d("@", "Get some errors"+err);
+        Log.d("@", "Get some errors" + err);
 
     }
 
     @Override
     public void onClick(View v) {
+        Intent i;
         switch(v.getId()) {
             case R.id.MainEvent_invitations:
-                Intent i = new Intent(this.getBaseContext(), InvitationList.class);
+                i = new Intent(this.getBaseContext(), InvitationList.class);
                 i.putExtra("event", event);
                 startActivity(i);
-        }
-    }
+                break;
 
-    @Override
-    public void onClick(View v) {
-        if (v == writeStatus) {
-            Intent i = new Intent(this, WriteMessage.class);
-            i.putExtra("event", event);
-            i.putExtra("subTitle", getString(R.string.WriteMessage_eventStatusCreationSubTitle));
-            startActivityForResult(i, 1);
-        }
-        else {
-            Intent i = new Intent(this, TaskList.class);
-            i.putExtra("event", event);
-            i.putExtra("user", user);
-            startActivityForResult(i, 2);
+            case R.id.button6:
+                i = new Intent(this, TaskList.class);
+                i.putExtra("event", event);
+                i.putExtra("user", user);
+                startActivityForResult(i, 2);
+                break;
+
+            case R.id.MainEvent_writeStatus:
+                i = new Intent(this, WriteMessage.class);
+                i.putExtra("event", event);
+                i.putExtra("subTitle", getString(R.string.WriteMessage_eventStatusCreationSubTitle));
+                startActivityForResult(i, 1);
         }
     }
 

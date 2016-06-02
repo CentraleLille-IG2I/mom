@@ -15,6 +15,7 @@ public class Rank implements Serializable{
     private boolean isAdmin;
     private String description;
     private String dateCreated;
+    private String name;
     private int idEvent;
 
     public Rank(JSONObject o) throws JSONException {
@@ -25,6 +26,7 @@ public class Rank implements Serializable{
         description = o.getString("description");
         dateCreated = o.getString("date_created");
         idEvent = o.getInt("pk_event");
+        name = o.getString("name");
     }
 
     private boolean parseBoolean(String txt) {
@@ -88,5 +90,13 @@ public class Rank implements Serializable{
 
     public void setIdEvent(int idEvent) {
         this.idEvent = idEvent;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -23,6 +23,14 @@ public class User implements Serializable{
         this.phone = phone;
     }
 
+    public User(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = "";
+        this.phone = "";
+    }
+
     public User(JSONObject json) throws JSONException {
         this.id = json.getInt("pk");
         this.firstName = json.getString("first_name");
@@ -78,5 +86,9 @@ public class User implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }

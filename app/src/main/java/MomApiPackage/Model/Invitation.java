@@ -2,7 +2,7 @@ package MomApiPackage.Model;
 
 import com.example.richou.mom.R;
 
-import MomApi.Model.*;
+import MomApiPackage.Model.*;
 
 /**
  * Created by richou on 02/06/16.
@@ -21,10 +21,10 @@ public class Invitation {
     private String dateCreated;
     private int eventId;
     private int creatorId;
-    private MomApi.Model.User invited;
+    private User invited;
     private int rankId;
 
-    public Invitation(int id, Status status, String content, String dateCreated, int eventId, int creatorId, MomApi.Model.User invited, int rankId) {
+    public Invitation(int id, Status status, String content, String dateCreated, int eventId, int creatorId, User invited, int rankId) {
         this.id = id;
         this.status = status;
         this.content = content;
@@ -120,11 +120,11 @@ public class Invitation {
         this.creatorId = creatorId;
     }
 
-    public MomApi.Model.User getInvited() {
+    public User getInvited() {
         return invited;
     }
 
-    public void setInvited(MomApi.Model.User invited) {
+    public void setInvited(User invited) {
         this.invited = invited;
     }
 

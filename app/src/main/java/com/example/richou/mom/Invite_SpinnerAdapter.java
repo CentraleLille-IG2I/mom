@@ -5,20 +5,15 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckedTextView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import MomApi.Model.Event;
-import MomApi.Model.Rank;
-import MomApi.MomApi;
-import MomApi.RequestCallback;
-import MomApi.MomErrors;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.Rank;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomErrors;
 
 /**
  * Created by richou on 02/06/16.

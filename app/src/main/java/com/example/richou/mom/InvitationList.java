@@ -3,21 +3,19 @@ package com.example.richou.mom;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import android.widget.ListView;
 
 import java.util.List;
 
-import MomApi.Model.Event;
-import MomApi.Model.Invitation;
-import MomApi.MomApi;
-import MomApi.RequestCallback;
-import MomApi.MomErrors;
+import MomApiPackage.Model.Event;
+import MomApiPackage.Model.Invitation;
+import MomApiPackage.MomApi;
+import MomApiPackage.RequestCallback;
+import MomApiPackage.MomErrors;
 
 public class InvitationList extends AppCompatActivity implements RequestCallback<List<Invitation>>, View.OnClickListener {
 
