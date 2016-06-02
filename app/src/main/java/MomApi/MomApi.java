@@ -41,6 +41,7 @@ import java.util.concurrent.TimeoutException;
 import MomApi.Model.Event;
 import MomApi.Model.EventStatus;
 import MomApi.Model.Invitation;
+import MomApi.Model.Rank;
 import MomApi.Model.User;
 
 /**
@@ -141,6 +142,7 @@ public class MomApi {
             }
         });
     }
+
 
     public void getUserEvents(int userId, RequestCallback<List<Event>> callback) {
         request(Request.Method.GET, "/user/"+userId+"/events/", new HashMap<String, String>(), new AnswerParser<List<Event>>(callback) {
@@ -269,7 +271,7 @@ public class MomApi {
         request(Request.Method.POST, "/user/search", p, new AnswerParser<User>(callback) {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("@", "getUserByEmail: "+response);
+                Log.d("@", "getUserByEmail: " + response);
                 try {
                     JSONObject user = response.getJSONObject("user");
                     if (!user.isNull("pk")) {
@@ -283,6 +285,37 @@ public class MomApi {
                 catch(JSONException e) {
                     Log.e("@", e.getMessage());
                     callback.onError(MomErrors.MALFORMED_DATA);
+                }
+            }
+        });
+    }
+
+    public void getEventRanks(Event event, RequestCallback<List<Rank>> callback) {
+        request(Request.Method.GET, "/event/"+event.getId()+"/ranks", new HashMap<String, String>(), new AnswerParser<List<Rank>>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("@", "getEventRanks: "+response.toString());
+                List<Rank> result = new ArrayList<>();
+                try {
+                    JSONArray ranks = response.getJSONArray("ranks");
+                    JSONObject rank;
+
+                    for (int i=0; i<ranks.length(); i++) {
+                        rank = ranks.getJSONObject(i);
+                        result.add(new Rank(rank.getInt("pk"),
+                                rank.getString("name"),
+                                rank.getString("description"),
+                                rank.getInt("pk_event"),
+                                rank.getBoolean("is_attendee"),
+                                rank.getBoolean("is_organiser"),
+                                rank.getBoolean("is_admin"),
+                                rank.getString("date_created")
+                        ));
+                    }
+                    this.callback.onSuccess(result);
+                } catch (JSONException e) {
+                    e.getMessage();
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
