@@ -69,6 +69,7 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Event event = (Event)parent.getItemAtPosition(position);
+        Log.d("@", "Event: "+event.getId());
         startMainEventActivity(event);
     }
 

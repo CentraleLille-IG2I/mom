@@ -2,6 +2,7 @@ package com.example.richou.mom;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +26,9 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
     private MomApi m;
 
     private android.widget.ListView lv;
+    private Button invitationsButton;
     private Button writeStatus;
     private Button task;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
+        Log.d("@", "Event in MainEvent: "+event.getId());
         user = (User)getIntent().getSerializableExtra("user");
 
         ((TextView)findViewById(R.id.textView3)).setText(event.getName());
@@ -59,6 +61,11 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         lv.setAdapter(new MainEvent_EventStatusListAdapter(this, new ArrayList<EventStatus>()));
 
         refresh();
+        
+        m.getEventStatuses(event.getId(), this);
+
+        invitationsButton = (Button) findViewById(R.id.MainEvent_invitations);
+        invitationsButton.setOnClickListener(this);
     }
 
     private void refresh() {
@@ -85,6 +92,16 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
     public void onError(MomErrors err) {
         Log.d("@", "Get some errors"+err);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.MainEvent_invitations:
+                Intent i = new Intent(this.getBaseContext(), InvitationList.class);
+                i.putExtra("event", event);
+                startActivity(i);
+        }
     }
 
     @Override

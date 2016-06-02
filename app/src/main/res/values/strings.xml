@@ -16,6 +16,7 @@
     <string name="Login_connect">Connect</string>
     <string name="Login_Err_emptyField">Please fill both field</string>
     <string name="Login_Err_wrongCredential">Wrong credential !</string>
+    <string name="Login_register">Register</string>
 
     <!-- Main Screen -->
     <string name="MainScreen_settings">Settings</string>
@@ -61,4 +62,33 @@
     <!-- TaskItemCreate -->
     <string name="TaskItemCreate_nameHint">Item Name</string>
     <string name="TaskItemCreate_createButton">Create item</string>
+
+    <!-- Register -->
+    <string name="Register_empty_email">Email cannot be empty</string>
+    <string name="Register_different_pass">Passwords are different</string>
+    <string name="Register_empty_password">Password cannot be empty</string>
+    <string name="Register_error">Something wrong happened.</string>
+    <string name="Register_first_name">First name</string>
+    <string name="Register_email">E-mail</string>
+    <string name="Register_phone">Phone number</string>
+    <string name="Register_password">Password</string>
+    <string name="Register_confirm">Confirm</string>
+    <string name="Register_submit">Register</string>
+
+    <!-- InvitationList -->
+    <string name="title_activity_invitation_list">Invitations</string>
+    <string name="Invitation_accepted">Accepted</string>
+    <string name="Invitation_pending">Pending</string>
+    <string name="Invitation_refused">Refused</string>
+    <string name="Invitation_unknown">Unknown</string>
+    <string name="InvitationList_error">Couldn\'t retrieve invitations.</string>
+
+    <!-- Invite -->
+    <string name="Invite_search">Search</string>
+    <string name="Invite_message">Message</string>
+    <string name="Invite_email">E-mail</string>
+    <string name="Invite_email_not_found">No user has this email address.</string>
+    <string name="Invite_error">Something wrong happened.</string>
+    <string name="Invite_rank_error">Couldn\'t retrieve ranks</string>
+    <string name="Invite_sent">Invite sent to %s.</string>
 </resources>

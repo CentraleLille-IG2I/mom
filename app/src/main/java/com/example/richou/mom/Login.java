@@ -14,11 +14,16 @@ import MomApiPackage.MomApi;
 import MomApiPackage.MomErrors;
 import MomApiPackage.RequestCallback;
 
-public class Login extends AppCompatActivity implements RequestCallback, View.OnClickListener {
-    private MomApi m;
+import MomApi.RequestCallback;
+import MomApi.MomApi;
+import MomApi.MomErrors;
 
+public class Login extends AppCompatActivity implements RequestCallback<Integer>, View.OnClickListener {
+    private MomApi m;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -26,18 +31,32 @@ public class Login extends AppCompatActivity implements RequestCallback, View.On
 
         Button b = (Button)findViewById(R.id.button);
         b.setOnClickListener(this);
+
+        Button register = (Button)findViewById(R.id.button_register);
+        register.setOnClickListener(this);
     }
 
     public void onClick(View v) {
-        Log.d("@", "test2");
+        switch(v.getId()) {
+            case R.id.button:
+                Log.d("@", "Connect");
 
-        String user = ((EditText)findViewById(R.id.editText)).getText().toString();
-        String pass = ((EditText)findViewById(R.id.editText2)).getText().toString();
+                String user = ((EditText)findViewById(R.id.editText)).getText().toString();
+                String pass = ((EditText)findViewById(R.id.editText2)).getText().toString();
 
-        if (user.length() == 0 || pass.length() == 0)
-            setErrorMessage(getString(R.string.Login_Err_emptyField));
-        else {
-            m.login(user, pass, this);
+                if (user.length() == 0 || pass.length() == 0)
+                    setErrorMessage(getString(R.string.Login_Err_emptyField));
+                else {
+                    m.login(user, pass, this);
+                }
+                break;
+            case R.id.button_register:
+                Log.d("@", "Register");
+                Intent i = new Intent(this, Register.class);
+                startActivityForResult(i, 1);
+                break;
+            default:
+                Log.e("@", "Unknown onClick view");
         }
     }
 
