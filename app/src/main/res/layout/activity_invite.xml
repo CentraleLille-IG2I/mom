@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/Invite_message"
         android:hint="@string/Invite_message" />
 
     <Button

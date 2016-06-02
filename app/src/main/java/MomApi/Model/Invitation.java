@@ -13,6 +13,18 @@ public class Invitation {
         UNKNOWN
     }
 
+    public static Status getStatusFromString(String s) {
+        switch (s) {
+            case "A":
+                return Status.ACCEPTED;
+            case "P":
+                return Status.PENDING;
+            case "R":
+                return Status.REFUSED;
+            default: return Status.UNKNOWN;
+        }
+    }
+
     private int id;
     private Status status;
     private String content;
@@ -52,6 +64,21 @@ public class Invitation {
             case REFUSED: return R.string.Invitation_refused;
             case UNKNOWN:
             default: return R.string.Invitation_unknown;
+        }
+    }
+
+    public void setStatusByString(String status) {
+        switch (status) {
+            case "A":
+                this.status = Status.ACCEPTED;
+                break;
+            case "P":
+                this.status = Status.PENDING;
+                break;
+            case "R":
+                this.status = Status.REFUSED;
+                break;
+            default: this.status = Status.UNKNOWN;
         }
     }
 

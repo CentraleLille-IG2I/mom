@@ -320,4 +320,33 @@ public class MomApi {
             }
         });
     }
+
+    public void createInvitation(Event event, User user, Rank rank, String message, RequestCallback<Invitation> callback) {
+        HashMap<String, String> p = new HashMap<String, String>();
+        p.put("pk_event", String.valueOf(event.getId()));
+        p.put("pk_user", String.valueOf(user.getId()));
+        p.put("pk_rank", String.valueOf(rank.getId()));
+        p.put("content", message);
+
+        request(Request.Method.POST, "/invitation/create", p, new AnswerParser<Invitation>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("@", "createInvitation: " + response.toString());
+                    callback.onSuccess(new Invitation(response.getInt("pk"),
+                            Invitation.getStatusFromString(response.getString("status")),
+                            response.getString("content"),
+                            response.getString("date_created"),
+                            response.getInt("pk_event"),
+                            response.getInt("pk_user_created_by"),
+                            null,
+                            response.getInt("pk_rank")
+                    ));
+                } catch (JSONException e) {
+                    Log.e("@",e.getMessage());
+                    callback.onError(MomErrors.MALFORMED_DATA);
+                }
+            }
+        });
+    }
 }

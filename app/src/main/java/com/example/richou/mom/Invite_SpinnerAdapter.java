@@ -49,12 +49,12 @@ public class Invite_SpinnerAdapter implements SpinnerAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return ranks.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return ranks.get(i).getId();
     }
 
     @Override

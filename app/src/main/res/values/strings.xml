@@ -73,4 +73,6 @@
     <string name="Invite_email">E-mail</string>
     <string name="Invite_email_not_found">No user has this email address.</string>
     <string name="Invite_error">Something wrong happened.</string>
+    <string name="Invite_rank_error">Couldn\'t retrieve ranks</string>
+    <string name="Invite_sent">Invite sent to %s.</string>
 </resources>

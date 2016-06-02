@@ -14,18 +14,19 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import MomApi.Model.Event;
+import MomApi.Model.Invitation;
 import MomApi.Model.Rank;
 import MomApi.Model.User;
 import MomApi.MomApi;
 import MomApi.RequestCallback;
 import MomApi.MomErrors;
 
-public class Invite extends AppCompatActivity implements View.OnClickListener {
+public class Invite extends AppCompatActivity implements View.OnClickListener, RequestCallback<Invitation>{
     private Event event;
 
     private EditText email;
-    private Button search;
-    private TextView name;
+    private Button search, submit;
+    private TextView name, message;
     private Spinner spinner;
     private MomApi api;
     private User user;
@@ -33,8 +34,8 @@ public class Invite extends AppCompatActivity implements View.OnClickListener {
     private RankGetter rg;
 
     class UserSearch implements RequestCallback<User> {
-        public void getUserByEmail(String email) {
-            api.getUserByEmail(email, this);
+        public void getUserByEmail() {
+            api.getUserByEmail(email.getText().toString(), this);
         }
 
         @Override
@@ -68,7 +69,7 @@ public class Invite extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         public void onError(MomErrors err) {
-            Toast.makeText(getBaseContext(), "Couldn't retrieve ranks", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.Invite_rank_error, Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -78,7 +79,9 @@ public class Invite extends AppCompatActivity implements View.OnClickListener {
 
         email = (EditText) findViewById(R.id.Invite_email);
         search = (Button) findViewById(R.id.Invite_search);
+        submit = (Button) findViewById(R.id.Invite_submit);
         name = (TextView) findViewById(R.id.Invite_name);
+        message = (TextView) findViewById(R.id.Invite_message);
         spinner = (Spinner) findViewById(R.id.Invite_rank_spinner);
         event = (Event) getIntent().getSerializableExtra("event");
 
@@ -88,14 +91,38 @@ public class Invite extends AppCompatActivity implements View.OnClickListener {
 
         rg.getRanks();
         search.setOnClickListener(this);
+        submit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.Invite_search:
-                us.getUserByEmail(email.getText().toString());
+                us.getUserByEmail();
                 break;
+            case R.id.Invite_submit:
+                us.getUserByEmail();
+                if(user == null) {
+                    Toast.makeText(getBaseContext(), "Please select a valid user email address.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Rank rank = (Rank) spinner.getSelectedItem();
+                if(rank == null) {
+                    Toast.makeText(getBaseContext(), "Please select a rank.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                api.createInvitation(event, user, rank, message.getText().toString(), this);
         }
+    }
+
+    @Override
+    public void onSuccess(Invitation arg) {
+        Toast.makeText(getBaseContext(), getString(R.string.Invite_sent, user.getFullName()), Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onError(MomErrors err) {
+        Toast.makeText(getBaseContext(), R.string.Invite_error, Toast.LENGTH_SHORT).show();
     }
 }
