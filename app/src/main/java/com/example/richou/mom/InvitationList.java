@@ -65,8 +65,12 @@ public class InvitationList extends AppCompatActivity implements RequestCallback
             case R.id.InvitationList_Fab:
                 Intent i = new Intent(this.getBaseContext(), Invite.class);
                 i.putExtra("event", event);
-                startActivity(i);
-                //TODO: Refresh invitations on return
+                startActivityForResult(i, 0);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        api.getEventInvitations(event, this);
     }
 }
