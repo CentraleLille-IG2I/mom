@@ -12,8 +12,11 @@ import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import MomApi.Model.Invitation;
 
 /**
  * Created by Robin on 29/05/2016.
@@ -27,6 +30,8 @@ public class AnswerParser <T> implements Response.Listener<JSONObject>, Response
 
         //kek = (Class<T>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
+
+
 
 
     @Override

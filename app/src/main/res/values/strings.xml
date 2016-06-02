@@ -58,4 +58,21 @@
     <string name="Register_password">Password</string>
     <string name="Register_confirm">Confirm</string>
     <string name="Register_submit">Register</string>
+
+    <!-- InvitationList -->
+    <string name="title_activity_invitation_list">Invitations</string>
+    <string name="Invitation_accepted">Accepted</string>
+    <string name="Invitation_pending">Pending</string>
+    <string name="Invitation_refused">Refused</string>
+    <string name="Invitation_unknown">Unknown</string>
+    <string name="InvitationList_error">Couldn\'t retrieve invitations.</string>
+
+    <!-- Invite -->
+    <string name="Invite_search">Search</string>
+    <string name="Invite_message">Message</string>
+    <string name="Invite_email">E-mail</string>
+    <string name="Invite_email_not_found">No user has this email address.</string>
+    <string name="Invite_error">Something wrong happened.</string>
+    <string name="Invite_rank_error">Couldn\'t retrieve ranks</string>
+    <string name="Invite_sent">Invite sent to %s.</string>
 </resources>

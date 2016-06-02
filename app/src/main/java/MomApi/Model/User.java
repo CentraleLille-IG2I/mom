@@ -21,6 +21,14 @@ public class User {
         this.phone = phone;
     }
 
+    public User(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = "";
+        this.phone = "";
+    }
+
     public User(JSONObject json) throws JSONException {
         id = json.getInt("pk");
         firstName = json.getString("first_name");
@@ -52,6 +60,8 @@ public class User {
     public void setLast_name(String last_name) {
         this.lastName = last_name;
     }
+
+    public String getFullName() { return firstName+" "+lastName; }
 
     public String getEmail() {
         return email;
