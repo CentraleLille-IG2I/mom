@@ -40,6 +40,7 @@ import java.util.concurrent.TimeoutException;
 
 import MomApi.Model.Event;
 import MomApi.Model.EventStatus;
+import MomApi.Model.Invitation;
 import MomApi.Model.User;
 
 /**
@@ -221,6 +222,42 @@ public class MomApi {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
+            }
+        });
+    }
+
+    public void getEventInvitations(Event event, RequestCallback<List<Invitation>> callback) {
+        request(Request.Method.GET, "/event/"+event.getId()+"/invitations", new HashMap<String, String>(), new AnswerParser<List<Invitation>>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                List<Invitation> result = new ArrayList<>();
+                try {
+                    Log.d("@", response.toString());
+                    JSONArray invitations = response.getJSONArray("invitations");
+                    for(int i = 0 ; i<invitations.length() ; ++i) {
+                        JSONObject invitation = invitations.getJSONObject(i);
+                        JSONObject user = invitation.getJSONObject("user_invited");
+                        Invitation.Status s;
+                        switch(invitation.getString("status")) {
+                            case "A": s = Invitation.Status.ACCEPTED; break;
+                            case "P": s = Invitation.Status.PENDING; break;
+                            case "R": s = Invitation.Status.REFUSED; break;
+                            default: throw new JSONException("Status is inconsistent");
+                        }
+                        result.add(new Invitation(invitation.getInt("pk"),
+                                s,
+                                invitation.getString("content"),
+                                invitation.getString("date_created"),
+                                invitation.getInt("pk_event"),
+                                invitation.getInt("pk_user_created_by"),
+                                new User(user.getInt("pk"), user.getString("first_name"), user.getString("last_name")),
+                                invitation.getInt("pk_rank")));
+                    }
+                } catch (JSONException e) {
+                    Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                }
+                this.callback.onSuccess(result);
             }
         });
     }

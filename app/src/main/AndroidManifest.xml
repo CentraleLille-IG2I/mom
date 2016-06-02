@@ -29,7 +29,12 @@
         <activity android:name=".WriteMessage" />
         <activity android:name=".TaskGlobal" />
         <activity android:name=".EventCreation" />
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
+        <activity
+            android:name=".InvitationList"
+            android:label="@string/title_activity_invitation_list"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

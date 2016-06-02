@@ -58,4 +58,12 @@
     <string name="Register_password">Password</string>
     <string name="Register_confirm">Confirm</string>
     <string name="Register_submit">Register</string>
+
+    <!-- InvitationList -->
+    <string name="title_activity_invitation_list">Invitations</string>
+    <string name="Invitation_accepted">Accepted</string>
+    <string name="Invitation_pending">Pending</string>
+    <string name="Invitation_refused">Refused</string>
+    <string name="Invitation_unknown">Unknown</string>
+    <string name="InvitationList_error">Couldn\'t retrieve invitations.</string>
 </resources>
