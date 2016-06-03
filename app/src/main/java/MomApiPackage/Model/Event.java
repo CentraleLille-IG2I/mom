@@ -40,12 +40,16 @@ public class Event implements Serializable {
         this.creationDate = json.getString("date_created");
         this.creatorId = json.getInt("pk_user_created_by");
 
-        JSONObject o = json.getJSONObject("rank");
-        Log.d("@", "rankLength : " + o.length() + "\n" + o);
-        if (o.length()==0)
-            rank = null;
+        if(json.has("rank")) {
+            JSONObject o = json.getJSONObject("rank");
+            Log.d("@", "rankLength : " + o.length() + "\n" + o);
+            if (o.length() == 0)
+                rank = null;
+            else
+                rank = new Rank(o);
+        }
         else
-            rank = new Rank(o);
+            rank = null;
     }
 
     public boolean canOrganise(User u) {

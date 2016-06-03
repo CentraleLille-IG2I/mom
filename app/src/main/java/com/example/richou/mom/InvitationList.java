@@ -39,9 +39,7 @@ public class InvitationList extends AppCompatActivity implements RequestCallback
 
         fab = (FloatingActionButton) findViewById(R.id.InvitationList_Fab);
         fab.setOnClickListener(this);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
 
         api.getEventInvitations(event, this);
     }
