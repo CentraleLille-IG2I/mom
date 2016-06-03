@@ -2,6 +2,9 @@ package MomApiPackage.Model;
 
 import com.example.richou.mom.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 
 import MomApiPackage.Model.*;
@@ -38,6 +41,27 @@ public class Invitation {
         this.rankId = rankId;
     }
 
+    public Invitation(JSONObject o) throws JSONException, ParseException {
+        this.id = o.getInt("pk");
+        this.status = getStatusFromString(o.getString("status"));
+        this.content = o.getString("content");
+        this.dateCreated = new MomDate(o.getString("date_created"));
+        this.eventId = o.getInt("pk_event");
+        this.creatorId = o.getInt("pk_user_created_by");
+        //this.invited = o.getInt("pk_user_invited");
+        this.rankId = o.getInt("pk_rank");
+
+           /* ‘pk’ : <invitation_pk>,
+            ‘content’ : <invitation_content>,
+            ‘status’ : <invitation_status>,
+            ‘date_created’ : <invitation_date_created>,
+            ‘pk_event’ : <invitation_event_pk>,
+            ‘pk_rank’ : <invitation_rank_pk>
+            ‘pk_user_created_by’ : <invitation_author_user_pk>,
+            ‘pk_user_invited’ : <invitation_user_pk>*/
+
+    }
+
     public static Status getStatusFromString(String s) {
         switch (s) {
             case "A":
@@ -46,7 +70,8 @@ public class Invitation {
                 return Status.PENDING;
             case "R":
                 return Status.REFUSED;
-            default: return Status.UNKNOWN;
+            default:
+                return Status.UNKNOWN;
         }
     }
 
@@ -85,6 +110,17 @@ public class Invitation {
                 break;
             default: this.status = Status.UNKNOWN;
         }
+    }
+
+    public String getStatusString() {
+        if (status == Status.ACCEPTED)
+            return "A";
+        else if (status == Status.PENDING)
+            return "P";
+        else if (status == Status.REFUSED)
+            return "R";
+        else
+            return null;
     }
 
     public void setStatus(Status status) {

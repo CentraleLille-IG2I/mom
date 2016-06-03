@@ -21,7 +21,7 @@ public class Event implements Serializable {
     private String place;
     private MomDate creationDate;
     private int creatorId;
-
+    private Invitation invitation;
     private Rank rank;
 
     public Event(int id, String name, String description, String date, String place, String creationDate, int creatorId) throws ParseException {
@@ -53,6 +53,17 @@ public class Event implements Serializable {
         }
         else
             rank = null;
+
+        if(json.has("invitation")) {
+            JSONObject o = json.getJSONObject("invitation");
+            Log.d("@", "invitationLength : " + o.length() + "\n" + o);
+            if (o.length() == 0)
+                rank = null;
+            else
+                invitation = new Invitation(o);
+        }
+        else
+            invitation = null;
     }
 
     public boolean canOrganise(User u) {
@@ -124,5 +135,29 @@ public class Event implements Serializable {
 
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public void setDate(MomDate date) {
+        this.date = date;
+    }
+
+    public void setCreationDate(MomDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Invitation getInvitation() {
+        return invitation;
+    }
+
+    public void setInvitation(Invitation invitation) {
+        this.invitation = invitation;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
     }
 }

@@ -20,6 +20,7 @@ import java.util.List;
 
 import MomApiPackage.Model.Event;
 import MomApiPackage.Model.EventStatus;
+import MomApiPackage.Model.Invitation;
 import MomApiPackage.Model.User;
 import MomApiPackage.MomApi;
 import MomApiPackage.RequestCallback;
@@ -33,6 +34,8 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
     private android.widget.ListView lv;
     private Button invitationsButton;
     private Button task;
+    private Button accept;
+    private Button decline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,20 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         //Context.momApi = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
-        Log.d("@", "Event in MainEvent: "+event.getId());
+        Log.d("@", "Event in MainEvent: " + event.getId());
         //user = (User)getIntent().getSerializableExtra("user");
 
         task = ((Button) findViewById(R.id.button6));
+        accept = ((Button) findViewById(R.id.MainEvent_buttonAccept));
+        decline = ((Button) findViewById(R.id.MainEvent_buttonDecline));
+
+        if (event.getInvitation()!=null && event.getInvitation().getStatus() == Invitation.Status.PENDING) {
+            accept.setOnClickListener(this);
+            decline.setOnClickListener(this);
+        }
+        else {
+            hideInviteButtons();
+        }
 
         setSupportActionBar((Toolbar) findViewById(R.id.MainEvent_toolbar));
         getSupportActionBar().setTitle(event.getName());
@@ -104,12 +117,21 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         else if (obj instanceof EventStatus) {
 
         }
+        else if (obj instanceof Integer) {
+            Log.d("@", "status changed");
+            hideInviteButtons();
+        }
     }
 
     @Override
     public void onError(MomErrors err) {
         Log.d("@", "Get some errors" + err);
 
+    }
+
+    private void hideInviteButtons() {
+        accept.setVisibility(View.GONE);
+        decline.setVisibility(View.GONE);
     }
 
     @Override
@@ -128,6 +150,16 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
                 i.putExtra("event", event);
                 //i.putExtra("user", user);
                 startActivityForResult(i, 2);
+                break;
+
+            case R.id.MainEvent_buttonAccept:
+                event.getInvitation().setStatus(Invitation.Status.ACCEPTED);
+                Context.momApi.editInvitation(event.getInvitation(), this);
+                break;
+
+            case R.id.MainEvent_buttonDecline:
+                event.getInvitation().setStatus(Invitation.Status.REFUSED);
+                Context.momApi.editInvitation(event.getInvitation(), this);
                 break;
         }
     }

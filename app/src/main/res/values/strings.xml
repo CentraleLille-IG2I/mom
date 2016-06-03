@@ -30,6 +30,10 @@
     <string name="MainEvent_place">Place : %s</string>
     <string name="MainEvent_writeStatus">New status</string>
     <string name="title_activity_main_event">Event</string>
+    <string name="MainEvent_accept">Accept</string>
+    <string name="MainEvent_decline">Decline</string>
+    <string name="MainEvent_invitation">Invitation</string>
+
 
     <!-- Event Creation -->
     <string name="EventCreation_name">Event name</string>

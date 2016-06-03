@@ -1,6 +1,8 @@
 package com.example.richou.mom;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import MomApiPackage.Model.Event;
 import MomApiPackage.Model.EventStatus;
+import MomApiPackage.Model.Invitation;
 
 /**
  * Created by Robin on 29/05/2016.
@@ -50,6 +53,33 @@ public class MainScreen_eventListAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.simple_line, null);
 
         ((TextView)((ViewGroup)view).getChildAt(0)).setText(events.get(position).getName());
+        Invitation tmp = events.get(position).getInvitation();
+        if (tmp!=null) {
+            switch (tmp.getStatus()) {
+                case ACCEPTED:
+                    Log.d("@", "color set green");
+                    ((TextView) ((ViewGroup) view).getChildAt(0)).setTextColor(Color.rgb(0, 255, 0));
+                    break;
+                case PENDING:
+                    Log.d("@", "color set yellow");
+                    ((TextView) ((ViewGroup) view).getChildAt(0)).setTextColor(Color.rgb(255, 255, 0));
+                    break;
+                case REFUSED:
+                    Log.d("@", "color set red");
+                    ((TextView) ((ViewGroup) view).getChildAt(0)).setTextColor(Color.rgb(255, 0, 0));
+                    break;
+            }
+        }
+        else {
+            Log.d("@", "color set blue");
+            //Log.d("@", ""+((TextView) ((ViewGroup) view).getChildAt(0)).getCurrentTextColor());
+            ((TextView) ((ViewGroup) view).getChildAt(0)).setTextColor(Color.parseColor("#ff0000ff"));
+           // Log.d("@", "" + ((TextView) ((ViewGroup) view).getChildAt(0)).getCurrentTextColor());
+            //Log.d("@", "" + Color.parseColor("#ff0000ff") + " " + Color.parseColor("#ff00ff00"));
+            //((TextView) ((ViewGroup) view).getChildAt(0)).setText("topkekek");
+        }
+
+        ((TextView)((ViewGroup)view).getChildAt(0)).setTextColor(Color.rgb(255, 0, 0));
         ((TextView)((ViewGroup)view).getChildAt(1)).setText(events.get(position).getDescription());
 
         return view;

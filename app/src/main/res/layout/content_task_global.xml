@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="@string/TaskGlobal_nPersonnes"
             android:id="@+id/button2" />
 
@@ -33,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="@string/TaskGlobal_join"
             android:id="@+id/button4" />
     </LinearLayout>
