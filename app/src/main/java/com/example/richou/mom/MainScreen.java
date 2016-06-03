@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.example.richou.mom.global.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +36,11 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        user = (User)getIntent().getSerializableExtra("user");
+        //user = (User)getIntent().getSerializableExtra("user");
+        user = Context.loggedUser;
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
+        m = Context.momApi;
 
         lv = (ListView)findViewById(R.id.listView);
         bSettings = (Button)findViewById(R.id.button2);
