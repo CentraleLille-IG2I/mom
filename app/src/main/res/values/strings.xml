@@ -3,8 +3,8 @@
 
     <!-- global -->
     <string name="MOM_SERVER">http://192.168.0.15:8000/api</string>
-    <string name="Global_Err_networkUnavailable">Network Unavailable !</string>
-    <string name="Global_Err_unknown">An Unknown error occured :(</string>
+    <string name="Global_Err_networkUnavailable">Network is unavailable.</string>
+    <string name="Global_Err_unknown">Something wrong happened.</string>
 
     <!-- Default -->
     <string name="app_name">Mom</string>
