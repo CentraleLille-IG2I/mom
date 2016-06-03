@@ -567,4 +567,31 @@ public class MomApi {
             }
         });
     }
+
+    public void editInvitation(Invitation invitation, RequestCallback<Integer> callback) {
+        HashMap<String, String> p = new HashMap<String, String>();
+        p.put("pk_rank", "" + invitation.getId());
+        p.put("status", "" + invitation.getStatusString());
+        p.put("content", invitation.getContent());
+        /*‘pk_rank’: <rank_pk>,
+        ‘status’ : <invitation_status>, (*)
+        ‘content’ : <invitation_content> (*)*/
+
+
+        request(Request.Method.POST, "/invitation/edit", p, new AnswerParser<Integer>(callback) {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("@", response.toString());
+                    new Invitation(response);
+                    this.callback.onSuccess(1);
+                } catch (JSONException e) {
+                    Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                }
+            }
+        });
+    }
 }
