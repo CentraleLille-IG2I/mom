@@ -48,7 +48,7 @@ public class MainEvent_EventStatusListAdapter extends BaseAdapter {
         else
             view = mInflater.inflate(R.layout.simple_text, null);
 
-        ((TextView)((ViewGroup)view).getChildAt(0)).setText(eventStatuses.get(position).getContent());
+        ((TextView)((ViewGroup)view).findViewById(R.id.textView8)).setText(eventStatuses.get(position).getContent());
         //((TextView)((ViewGroup)view).getChildAt(1)).setText(events.get(position).getDescription());
 
         return view;

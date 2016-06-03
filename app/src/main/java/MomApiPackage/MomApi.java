@@ -383,7 +383,7 @@ public class MomApi {
 
     public void editTaskItem(TaskItem taskItem, RequestCallback<Integer> callback) {
         HashMap<String, String> p = new HashMap<String, String>();
-        p.put("task_item_pk", "" + taskItem.getId());
+        p.put("pk_task_item", "" + taskItem.getId());
         p.put("completed", "" + taskItem.isCompleted());
         p.put("name", taskItem.getName());
 
