@@ -26,7 +26,10 @@
         </activity>
         <activity android:name=".Invite" />
         <activity android:name=".ListView" />
-        <activity android:name=".TaskCreation" />
+        <activity android:name=".TaskCreation"
+            android:label="@string/title_activity_task_creation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".WriteMessage"
             android:label="@string/title_activity_write_message"
             android:theme="@style/AppTheme.NoActionBar">

@@ -44,6 +44,9 @@
     <string name="TaskCreation_Create">Create</string>
     <string name="TaskCreation_taskName">Task name</string>
     <string name="TaskCreation_taskDescription">Description</string>
+    <string name="title_activity_task_creation">New task</string>
+    <string name="TaskCreation_empty">You cant\'t send a task with an empty name!</string>
+    <string name="TaskCreation_error">Something wrong happened.</string>
 
     <!-- WriteMessage -->
     <string name="WriteMessage_send">Post</string>
@@ -56,8 +59,8 @@
     <string name="TaskGlobal_nPersonnes">%d Personnes</string>
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
-    <string name="TaskGlobal_createSubTask">New subtask</string>
-    <string name="TaskGlobal_createComment">New comment</string>
+    <string name="TaskGlobal_createSubTask">Add a checklist item</string>
+    <string name="TaskGlobal_createComment">Add a comment</string>
     <string name="title_activity_task_global">Task</string>
     <string name="TaskGlobal_error">Something wrong happened.</string>
     <string name="TaskGlobal_Comments">Comments</string>

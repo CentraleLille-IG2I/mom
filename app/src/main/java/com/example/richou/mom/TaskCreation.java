@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-
-import org.w3c.dom.Text;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import MomApiPackage.Model.Event;
 import MomApiPackage.Model.Task;
@@ -17,9 +20,8 @@ import MomApiPackage.MomApi;
 import MomApiPackage.MomErrors;
 import MomApiPackage.RequestCallback;
 
-public class TaskCreation extends AppCompatActivity implements View.OnClickListener, RequestCallback<Task> {
+public class TaskCreation extends AppCompatActivity implements RequestCallback<Task> {
     private MomApi m;
-    private Button create;
     private EditText fieldName;
     private EditText fieldDescription;
 
@@ -30,34 +32,42 @@ public class TaskCreation extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_creation);
+        setSupportActionBar((Toolbar) findViewById(R.id.TaskCreation_toolbar));
 
         m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
         user = (User)getIntent().getSerializableExtra("user");
 
+        getSupportActionBar().setTitle(event.getName());
+        getSupportActionBar().setSubtitle(getString(R.string.title_activity_task_creation));
+
         fieldName = (EditText)findViewById(R.id.editText5);
         fieldDescription = (EditText)findViewById(R.id.TaskCreation_editTextDescription);
-
-
-        create = (Button)findViewById(R.id.button7);
-        create.setOnClickListener(this);
-
-        ((TextView)findViewById(R.id.textView3)).setText(event.getName());
-
     }
 
     @Override
-    public void onClick(View v) {
-        String name = fieldName.getText().toString();
-        String description = fieldName.getText().toString();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_task_creation, menu);
+        return true;
+    }
 
-        if (name.length()==0 || description.length()==0) {
-            Log.d("@", "event creation need 'empty field' popup");
-            return;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.TaskCreation_submit:
+                String name = fieldName.getText().toString();
+                String description = fieldName.getText().toString();
+
+                if (name.length()==0) {
+                    Toast.makeText(TaskCreation.this, R.string.TaskCreation_empty, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                m.createTask(event, name, description, this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        m.createTask(event, name, description, this);
     }
 
     @Override
@@ -70,6 +80,6 @@ public class TaskCreation extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onError(MomErrors err) {
-        Log.d("@", "taskCreation get error --> need some popup");
+        Toast.makeText(getBaseContext(), R.string.TaskCreation_error, Toast.LENGTH_SHORT).show();
     }
 }
