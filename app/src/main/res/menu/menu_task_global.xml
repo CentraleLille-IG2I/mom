@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainScreen">
+    <item
+        android:id="@+id/TaskGlobal_addTaskItem"
+        android:orderInCategory="100"
+        android:icon = "@drawable/ic_check_box_white_24dp"
+        android:title="@string/TaskGlobal_createSubTask"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/TaskGlobal_addComment"
+        android:orderInCategory="200"
+        android:icon = "@drawable/write"
+        android:title="@string/TaskGlobal_createComment"
+        app:showAsAction="ifRoom" />
+</menu>
