@@ -27,6 +27,7 @@
     <string name="MainEvent_date">Date : %s</string>
     <string name="MainEvent_place">Place : %s</string>
     <string name="MainEvent_writeStatus">New status</string>
+    <string name="title_activity_main_event">Event</string>
 
     <!-- Event Creation -->
     <string name="EventCreation_name">Event Name</string>
@@ -45,7 +46,7 @@
 
     <!-- WriteMessage -->
     <string name="WriteMessage_send">Post</string>
-    <string name="WriteMessage_eventStatusCreationSubTitle">New event status</string>
+    <string name="WriteMessage_eventStatusCreationSubTitle">New status</string>
     <string name="WriteMessage_taskCommentSubTitle">New task comment</string>
 
     <!-- TaskGlobal -->
