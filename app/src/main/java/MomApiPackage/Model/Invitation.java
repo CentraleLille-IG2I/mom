@@ -5,6 +5,7 @@ import com.example.richou.mom.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 
 import MomApiPackage.Model.*;
@@ -13,7 +14,7 @@ import MomApiPackage.MomDate;
 /**
  * Created by richou on 02/06/16.
  */
-public class Invitation {
+public class Invitation implements Serializable {
     public enum Status {
         ACCEPTED,
         PENDING,

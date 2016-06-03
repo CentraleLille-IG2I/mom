@@ -570,9 +570,9 @@ public class MomApi {
 
     public void editInvitation(Invitation invitation, RequestCallback<Integer> callback) {
         HashMap<String, String> p = new HashMap<String, String>();
-        p.put("pk_rank", "" + invitation.getId());
+        p.put("pk_invitation", "" + invitation.getId());
         p.put("status", "" + invitation.getStatusString());
-        p.put("content", invitation.getContent());
+        //p.put("content", invitation.getContent());
         /*‘pk_rank’: <rank_pk>,
         ‘status’ : <invitation_status>, (*)
         ‘content’ : <invitation_content> (*)*/
