@@ -31,11 +31,14 @@
     <string name="title_activity_main_event">Event</string>
 
     <!-- Event Creation -->
-    <string name="EventCreation_name">Event Name</string>
+    <string name="EventCreation_name">Event name</string>
     <string name="EventCreation_date">Date</string>
     <string name="EventCreation_place">Place</string>
     <string name="EventCreation_description">Description</string>
     <string name="EventCreation_create">Create</string>
+    <string name="title_activity_event_creation">New event</string>
+    <string name="EventCreation_empty">You can\'t send an event without a name!</string>
+    <string name="EventCreation_error">Something wrong happened.</string>
 
     <!-- Invitation view -->
     <string name="Invite_send">Send</string>

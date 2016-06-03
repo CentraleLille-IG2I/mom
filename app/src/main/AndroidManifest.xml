@@ -38,7 +38,10 @@
             android:label="@string/title_activity_task_global"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".EventCreation" />
+        <activity android:name=".EventCreation"
+            android:label="@string/title_activity_event_creation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".Register" />
         <activity
             android:name=".InvitationList"
