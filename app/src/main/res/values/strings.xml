@@ -61,6 +61,8 @@
 
     <!-- TaskList -->
     <string name="TaskList_newTask">New task</string>
+    <string name="title_activity_task_list">Tasks</string>
+    <string name="TaskList_error">Couldn\'t retrieve tasks.</string>
 
     <!-- TaskItemCreate -->
     <string name="TaskItemCreate_nameHint">Item Name</string>
