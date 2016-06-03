@@ -50,7 +50,7 @@
     <string name="WriteMessage_eventStatusCreationSubTitle">New status</string>
     <string name="WriteMessage_taskCommentSubTitle">New comment</string>
     <string name="title_activity_write_message">Write message</string>
-    <string name="WriteMessage_hint">Write a message...</string>
+    <string name="WriteMessage_hint">Write a message…</string>
 
     <!-- TaskGlobal -->
     <string name="TaskGlobal_nPersonnes">%d Personnes</string>
@@ -69,8 +69,11 @@
     <string name="TaskList_error">Couldn\'t retrieve tasks.</string>
 
     <!-- TaskItemCreate -->
-    <string name="TaskItemCreate_nameHint">Item Name</string>
-    <string name="TaskItemCreate_createButton">Create item</string>
+    <string name="TaskItemCreate_send">Create item</string>
+    <string name="title_activity_task_item_create">Add an item</string>
+    <string name="TaskItemCreate_Hint">Enter a checklist item…</string>
+    <string name="TaskItemCreate_error">Something wrong happened.</string>
+    <string name="TaskItemCreate_empty">You can\'t send an empty checklist item</string>
 
     <!-- Register -->
     <string name="Register_empty_email">Email cannot be empty</string>
