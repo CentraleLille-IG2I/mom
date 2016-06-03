@@ -30,9 +30,9 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     private Button bSettings;
     private FloatingActionButton bCreate;
 
-    private User user;
+    //private User user;
 
-    private MomApi m;
+    //private MomApi m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +40,17 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
         setContentView(R.layout.activity_main_screen);
 
         //user = (User)getIntent().getSerializableExtra("user");
-        user = Context.loggedUser;
+        //user = Context.loggedUser;
 
         //m = new MomApi(this);
-        m = Context.momApi;
+        //m = Context.momApi;
 
         lv = (ListView)findViewById(R.id.listView);
         bCreate = (FloatingActionButton)findViewById(R.id.MainScreen_Fab);
         Toolbar toolbar = (Toolbar) findViewById(R.id.MainScreen_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.title_activity_main_screen);
-        toolbar.setSubtitle(user.getFullName());
+        toolbar.setSubtitle(Context.loggedUser.getFullName());
 
         lv.setOnItemClickListener(this);
         bCreate.setOnClickListener(this);
@@ -77,7 +77,7 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     }
 
     private void refresh() {
-        m.getUserEvents(user, this);
+        Context.momApi.getUserEvents(Context.loggedUser, this);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     private void startMainEventActivity(Event e) {
         Intent i = new Intent(this, MainEvent.class);
         i.putExtra("event", e);
-        i.putExtra("user", user);
+        //i.putExtra("user", Context.loggedUser);
         startActivityForResult(i, 2);
     }
 

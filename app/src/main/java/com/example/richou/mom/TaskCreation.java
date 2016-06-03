@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import MomApiPackage.Model.Event;
 import MomApiPackage.Model.Task;
 import MomApiPackage.Model.User;
@@ -21,12 +23,12 @@ import MomApiPackage.MomErrors;
 import MomApiPackage.RequestCallback;
 
 public class TaskCreation extends AppCompatActivity implements RequestCallback<Task> {
-    private MomApi m;
+    //private MomApi m;
     private EditText fieldName;
     private EditText fieldDescription;
 
     private Event event;
-    private User user;
+    //private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,10 @@ public class TaskCreation extends AppCompatActivity implements RequestCallback<T
         setContentView(R.layout.activity_task_creation);
         setSupportActionBar((Toolbar) findViewById(R.id.TaskCreation_toolbar));
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
-        user = (User)getIntent().getSerializableExtra("user");
+        //user = (User)getIntent().getSerializableExtra("user");
 
         getSupportActionBar().setTitle(event.getName());
         getSupportActionBar().setSubtitle(getString(R.string.title_activity_task_creation));
@@ -60,10 +62,10 @@ public class TaskCreation extends AppCompatActivity implements RequestCallback<T
                 String description = fieldName.getText().toString();
 
                 if (name.length()==0) {
-                    Toast.makeText(TaskCreation.this, R.string.TaskCreation_empty, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TaskCreation.this, getString(R.string.TaskCreation_empty), Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                m.createTask(event, name, description, this);
+                Context.momApi.createTask(event, name, description, this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -80,6 +82,6 @@ public class TaskCreation extends AppCompatActivity implements RequestCallback<T
 
     @Override
     public void onError(MomErrors err) {
-        Toast.makeText(getBaseContext(), R.string.TaskCreation_error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), getString(R.string.TaskCreation_error), Toast.LENGTH_SHORT).show();
     }
 }

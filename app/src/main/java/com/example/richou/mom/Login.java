@@ -30,6 +30,8 @@ import MomApiPackage.MomApi;
 import MomApiPackage.MomErrors;
 import MomApiPackage.RequestCallback;
 
+
+
 public class Login extends AppCompatActivity implements RequestCallback, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<People.LoadPeopleResult> {
     //private MomApi m;
 
@@ -70,6 +72,7 @@ public class Login extends AppCompatActivity implements RequestCallback, View.On
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.button:
+                //connection button
                 Log.d("@", "Connect");
 
                 String user = ((EditText)findViewById(R.id.editText)).getText().toString();
@@ -83,12 +86,14 @@ public class Login extends AppCompatActivity implements RequestCallback, View.On
                 break;
 
             case R.id.button_register:
+                //creation of a new account
                 Log.d("@", "Register");
                 Intent i = new Intent(this, Register.class);
                 startActivityForResult(i, 1);
                 break;
 
             case R.id.sign_in_button:
+                //google button
                 signIn();
                 break;
 
@@ -146,7 +151,7 @@ public class Login extends AppCompatActivity implements RequestCallback, View.On
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("@", "connection to google failded");
+        setErrorMessage(getString(R.string.Login_googleConnectionError));
     }
 
     @Override

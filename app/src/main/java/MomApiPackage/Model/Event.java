@@ -6,6 +6,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+
+import MomApiPackage.MomDate;
 
 /**
  * Created by Robin on 28/05/2016.
@@ -14,30 +17,30 @@ public class Event implements Serializable {
     private int id;
     private String name;
     private String description;
-    private String date;
+    private MomDate date;
     private String place;
-    private String creationDate;
+    private MomDate creationDate;
     private int creatorId;
 
     private Rank rank;
 
-    public Event(int id, String name, String description, String date, String place, String creationDate, int creatorId) {
+    public Event(int id, String name, String description, String date, String place, String creationDate, int creatorId) throws ParseException {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.date = date;
+        this.date = new MomDate(date);
         this.place = place;
-        this.creationDate = creationDate;
+        this.creationDate = new MomDate(creationDate);
         this.creatorId = creatorId;
     }
 
-    public Event(JSONObject json) throws JSONException {
+    public Event(JSONObject json) throws JSONException, ParseException {
         this.id = json.getInt("pk");
         this.name = json.getString("name");
         this.description = json.getString("description");
-        this.date = json.getString("date");
+        this.date = new MomDate(json.getString("date"));
         this.place = json.getString("place_event");
-        this.creationDate = json.getString("date_created");
+        this.creationDate = new MomDate(json.getString("date_created"));
         this.creatorId = json.getInt("pk_user_created_by");
 
         if(json.has("rank")) {
@@ -91,12 +94,12 @@ public class Event implements Serializable {
         this.description = description;
     }
 
-    public String getDate() {
+    public MomDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String date) throws ParseException {
+        this.date.setDate(date);
     }
 
     public String getPlace() {
@@ -107,12 +110,12 @@ public class Event implements Serializable {
         this.place = place;
     }
 
-    public String getCreationDate() {
+    public MomDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDate(String creationDate) throws ParseException {
+        this.creationDate.setDate(creationDate);
     }
 
     public int getCreatorId() {

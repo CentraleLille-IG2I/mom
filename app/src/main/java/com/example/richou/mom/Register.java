@@ -10,15 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import MomApiPackage.MomApi;
 import MomApiPackage.RequestCallback;
 import MomApiPackage.MomErrors;
 
 public class Register extends AppCompatActivity implements View.OnClickListener, RequestCallback<Integer> {
-    EditText firstName, lastName, email, phone, pass, passBis;
-    Button submit;
+    private EditText firstName, lastName, email, phone, pass, passBis;
+    private Button submit;
 
-    MomApi api;
+    //MomApi api;
 
 
     @Override
@@ -35,7 +37,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
         submit = (Button) findViewById(R.id.register_submit);
 
         submit.setOnClickListener(this);
-        api = new MomApi(getBaseContext());
+        //api = new MomApi(getBaseContext());
 
     }
 
@@ -62,7 +64,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
                         email.getText().toString()+
                         phone.getText().toString()+
                         pass.getText().toString());
-                api.register(firstName.getText().toString(),
+                Context.momApi.register(firstName.getText().toString(),
                         lastName.getText().toString(),
                         email.getText().toString(),
                         phone.getText().toString(),

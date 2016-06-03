@@ -18,13 +18,14 @@
     <string name="Login_Err_emptyField">Please fill both field</string>
     <string name="Login_Err_wrongCredential">Wrong credential !</string>
     <string name="Login_register">Register</string>
+    <string name="Login_googleConnectionError">Cannot connect to google</string>
 
     <!-- Main Screen -->
     <string name="MainScreen_settings">Settings</string>
     <string name="title_activity_main_screen">Events</string>
 
     <!-- Main Event -->
-    <string name="MainEvent_tasks">Tasks %s</string>
+    <string name="MainEvent_tasks">Tasks</string>
     <string name="MainEvent_date">Date : %s</string>
     <string name="MainEvent_place">Place : %s</string>
     <string name="MainEvent_writeStatus">New status</string>
@@ -57,9 +58,10 @@
     <string name="WriteMessage_taskCommentSubTitle">New comment</string>
     <string name="title_activity_write_message">Write message</string>
     <string name="WriteMessage_hint">Write a message…</string>
+    <string name="WriteMessage_errorEmptyMessage">Can\'t send an empty message.</string>
 
     <!-- TaskGlobal -->
-    <string name="TaskGlobal_nPersonnes">%d Personnes</string>
+    <string name="TaskGlobal_nPersonnes">Personnes</string>
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
     <string name="TaskGlobal_createSubTask">Add a checklist item</string>
@@ -109,4 +111,6 @@
     <string name="Invite_error">Something wrong happened.</string>
     <string name="Invite_rank_error">Couldn\'t retrieve ranks</string>
     <string name="Invite_sent">Invite sent to %s.</string>
+    <string name="Invite_errorSelectValidEmail">Please select a valid user email address.</string>
+    <string name="Invite_errorSelectRank">Please select a rank.</string>
 </resources>

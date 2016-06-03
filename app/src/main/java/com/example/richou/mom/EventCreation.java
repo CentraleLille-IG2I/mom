@@ -13,18 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import MomApiPackage.Model.Event;
 import MomApiPackage.MomApi;
 import MomApiPackage.RequestCallback;
 import MomApiPackage.MomErrors;
 
 public class EventCreation extends AppCompatActivity implements RequestCallback<Event> {
-    EditText nameField;
-    EditText dateField;
-    EditText placeField;
-    EditText descriptionField;
+    private EditText nameField;
+    private EditText dateField;
+    private EditText placeField;
+    private EditText descriptionField;
 
-    private MomApi m;
+    //private MomApi m;
 
 
     @Override
@@ -34,7 +36,7 @@ public class EventCreation extends AppCompatActivity implements RequestCallback<
         setSupportActionBar((Toolbar) findViewById(R.id.EventCreation_toolbar));
         getSupportActionBar().setTitle(R.string.title_activity_event_creation);
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
 
         nameField = (EditText)findViewById(R.id.EventCreation_name);
         dateField = (EditText)findViewById(R.id.EventCreation_date);
@@ -62,7 +64,7 @@ public class EventCreation extends AppCompatActivity implements RequestCallback<
                     Toast.makeText(getBaseContext(), R.string.EventCreation_empty, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                m.createEvent(name, date, place, description, this);
+                Context.momApi.createEvent(name, date, place, description, this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -11,26 +11,28 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import MomApiPackage.MomDate;
+
 /**
  * Created by Robin on 30/05/2016.
  */
 public class EventStatus implements Comparable<EventStatus>, Serializable {
     private int id;
     private String content;
-    private String creationDate;
+    private MomDate creationDate;
     private int creatorId;
 
-    public EventStatus(int id, String content, String creationDate, int creatorId) {
+    public EventStatus(int id, String content, String creationDate, int creatorId) throws ParseException {
         this.id = id;
         this.content = content;
-        this.creationDate = creationDate;
+        this.creationDate = new MomDate(creationDate);
         this.creatorId = creatorId;
     }
 
-    public EventStatus(JSONObject o) throws JSONException {
+    public EventStatus(JSONObject o) throws JSONException, ParseException {
         this.id = o.getInt("pk");
         this.content = o.getString("content");
-        this.creationDate = o.getString("date_created");
+        this.creationDate = new MomDate(o.getString("date_created"));
         this.creatorId = o.getInt("pk_user_created_by");
     }
 
@@ -50,12 +52,12 @@ public class EventStatus implements Comparable<EventStatus>, Serializable {
         this.content = content;
     }
 
-    public String getCreationDate() {
+    public MomDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDate(String creationDate) throws ParseException {
+        this.creationDate.setDate(creationDate);
     }
 
     public int getCreatorId() {
@@ -68,13 +70,6 @@ public class EventStatus implements Comparable<EventStatus>, Serializable {
 
     @Override
     public int compareTo(EventStatus another) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
-        try {
-            return format.parse(another.getCreationDate()).compareTo(format.parse(this.getCreationDate()));
-        } catch (ParseException e) {
-            Log.d("@", "DateParseError" + e);
-            e.printStackTrace();
-            return 0;
-        }
+        return creationDate.compareTo(another.getCreationDate());
     }
 }

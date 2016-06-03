@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +30,14 @@ import MomApiPackage.RequestCallback;
 
 
 public class TaskGlobal extends AppCompatActivity implements RequestCallback, View.OnClickListener {
-    private MomApi m;
+    //private MomApi m;
     private ListView lvSubTask;
     private ListView lvComment;
     private Button bListPeople;
     private Button bJoinQuit;
 
     private Event event;
-    private User user;
+    //private User user;
     private Task task;
 
     private int userInTask=-1; //1: in task, 0: not in task, -1: unknown (data have not been retrieved yet)
@@ -46,10 +48,10 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
         setContentView(R.layout.activity_task_global);
         setSupportActionBar((Toolbar) findViewById(R.id.TaskGlobal_toolbar));
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
-        user = (User)getIntent().getSerializableExtra("user");
+        //user = (User)getIntent().getSerializableExtra("user");
         task = (Task)getIntent().getSerializableExtra("task");
 
         getSupportActionBar().setTitle(event.getName());
@@ -98,24 +100,18 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
     }
 
     private void userInTask(Task t) {
-        m.getTaskUsers(task, this);
+        Context.momApi.getTaskUsers(task, this);
     }
 
     private void refresh() {
-        m.getTaskItems(task, this);
-        m.getTaskComments(task, this);
-        m.getTaskUsers(task, this);
+        Context.momApi.getTaskItems(task, this);
+        Context.momApi.getTaskComments(task, this);
+        Context.momApi.getTaskUsers(task, this);
     }
 
     @Override
     public void onSuccess(Object arg) {
-        if (arg instanceof TaskItem) {
-            Log.d("@", "taskItem");
-        }
-        else if (arg instanceof TaskComment) {
-
-        }
-        else if (arg instanceof List) {
+        if (arg instanceof List) {
             //Warning uglyest part of the code !!!!!
             Log.d("@", "list");
             for (Object o : ((List)arg)) {
@@ -146,7 +142,7 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
 
     private boolean isUserContained(List<User> users) {
         for (User u : users) {
-            if (u.getId() == user.getId())
+            if (u.getId() == Context.loggedUser.getId())
                 return true;
         }
         return false;
@@ -161,15 +157,16 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.button4:
-            if (userInTask==1) {
-                Toast.makeText(getBaseContext(), R.string.global_NIY, Toast.LENGTH_SHORT).show();
+                if (userInTask==1) {
+                    Toast.makeText(getBaseContext(), R.string.global_NIY, Toast.LENGTH_SHORT).show();
 
-            }
-            else if (userInTask==0) {
-                m.addUserInTask(user, task, this);
-            }
-            break;
+                }
+                else if (userInTask==0) {
+                    Context.momApi.addUserInTask(Context.loggedUser, task, this);
+                }
+                break;
             case R.id.button2:
+                Log.d("@", "should comme some day");
             default:
         }
     }
@@ -178,7 +175,7 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                m.addTaskComment(task, data.getExtras().getString("message"), this);
+                Context.momApi.addTaskComment(task, data.getExtras().getString("message"), this);
             }
         }
         refresh();
