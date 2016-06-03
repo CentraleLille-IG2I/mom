@@ -17,6 +17,7 @@ import org.w3c.dom.Comment;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.HttpCookie;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -115,6 +116,8 @@ public class MomApi {
                     this.callback.onSuccess(ret);
                 } catch (JSONException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
@@ -137,6 +140,8 @@ public class MomApi {
                     }
                     this.callback.onSuccess(ret);
                 } catch (JSONException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
@@ -178,6 +183,8 @@ public class MomApi {
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
@@ -196,6 +203,8 @@ public class MomApi {
                     this.callback.onSuccess(new EventStatus(response));
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
@@ -222,6 +231,8 @@ public class MomApi {
                 catch (JSONException e) {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
@@ -241,6 +252,8 @@ public class MomApi {
                     this.callback.onSuccess(new Task(response));
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
@@ -267,6 +280,8 @@ public class MomApi {
                 catch (JSONException e) {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
@@ -291,6 +306,8 @@ public class MomApi {
                 }
                 catch (JSONException e) {
                     Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
@@ -336,6 +353,8 @@ public class MomApi {
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
@@ -356,6 +375,8 @@ public class MomApi {
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -375,6 +396,8 @@ public class MomApi {
                     this.callback.onSuccess(1);
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
@@ -396,6 +419,8 @@ public class MomApi {
                     this.callback.onSuccess(1);
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
                     this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
@@ -453,6 +478,8 @@ public class MomApi {
                 } catch (JSONException e) {
                     Log.d("@", e.toString());
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
                 this.callback.onSuccess(result);
             }
@@ -503,6 +530,8 @@ public class MomApi {
                 } catch (JSONException e) {
                     e.getMessage();
                     this.callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });
@@ -532,6 +561,8 @@ public class MomApi {
                 } catch (JSONException e) {
                     Log.e("@", e.getMessage());
                     callback.onError(MomErrors.MALFORMED_DATA);
+                } catch (ParseException e) {
+                    this.callback.onError(MomErrors.MALFORMED_DATA);
                 }
             }
         });

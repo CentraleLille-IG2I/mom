@@ -23,16 +23,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList extends AppCompatActivity implements RequestCallback<List<Task>>, AdapterView.OnItemClickListener, View.OnClickListener {
-    private MomApi m;
+    //private MomApi m;
     private ListView lv;
     private FloatingActionButton newTask;
 
     private Event event;
-    private User user;
+    //private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,10 @@ public class TaskList extends AppCompatActivity implements RequestCallback<List<
         setContentView(R.layout.activity_task_list);
         setSupportActionBar((Toolbar) findViewById(R.id.TaskList_toolbar));
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
-        user = (User)getIntent().getSerializableExtra("user");
+        //user = (User)getIntent().getSerializableExtra("user");
         getSupportActionBar().setSubtitle(event.getName());
 
         newTask = (FloatingActionButton)findViewById(R.id.TaskList_Fab);
@@ -57,7 +59,7 @@ public class TaskList extends AppCompatActivity implements RequestCallback<List<
     }
 
     private void refresh() {
-        m.getEventTask(event, this);
+        Context.momApi.getEventTask(event, this);
     }
 
     @Override
@@ -82,7 +84,7 @@ public class TaskList extends AppCompatActivity implements RequestCallback<List<
             case R.id.TaskList_Fab:
                 Intent i = new Intent(this, TaskCreation.class);
                 i.putExtra("event", event);
-                i.putExtra("user", user);
+                //i.putExtra("user", user);
                 startActivityForResult(i, 1);
                 break;
         }
@@ -105,7 +107,7 @@ public class TaskList extends AppCompatActivity implements RequestCallback<List<
     private void startTaskGlobalActivity (Task task) {
         Intent i = new Intent(this, TaskGlobal.class);
         i.putExtra("event", event);
-        i.putExtra("user", user);
+        //i.putExtra("user", user);
         i.putExtra("task", task);
         startActivityForResult(i, 2);
     }

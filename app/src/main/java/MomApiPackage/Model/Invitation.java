@@ -2,7 +2,10 @@ package MomApiPackage.Model;
 
 import com.example.richou.mom.R;
 
+import java.text.ParseException;
+
 import MomApiPackage.Model.*;
+import MomApiPackage.MomDate;
 
 /**
  * Created by richou on 02/06/16.
@@ -18,17 +21,17 @@ public class Invitation {
     private int id;
     private Status status;
     private String content;
-    private String dateCreated;
+    private MomDate dateCreated;
     private int eventId;
     private int creatorId;
     private User invited;
     private int rankId;
 
-    public Invitation(int id, Status status, String content, String dateCreated, int eventId, int creatorId, User invited, int rankId) {
+    public Invitation(int id, Status status, String content, String dateCreated, int eventId, int creatorId, User invited, int rankId) throws ParseException {
         this.id = id;
         this.status = status;
         this.content = content;
-        this.dateCreated = dateCreated;
+        this.dateCreated = new MomDate(dateCreated);
         this.eventId = eventId;
         this.creatorId = creatorId;
         this.invited = invited;
@@ -96,12 +99,12 @@ public class Invitation {
         this.content = content;
     }
 
-    public String getDateCreated() {
+    public MomDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateCreated(String dateCreated) throws ParseException {
+        this.dateCreated.setDate(dateCreated);
     }
 
     public int getEventId() {

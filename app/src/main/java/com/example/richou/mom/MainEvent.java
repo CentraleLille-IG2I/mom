@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.richou.mom.global.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +27,8 @@ import MomApiPackage.MomErrors;
 
 public class MainEvent extends AppCompatActivity implements RequestCallback, View.OnClickListener {
     private Event event;
-    private User user;
-    private MomApi m;
+    //private User user;
+    //private MomApi m;
 
     private android.widget.ListView lv;
     private Button invitationsButton;
@@ -37,18 +39,19 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_event);
 
-        m = new MomApi(this);
+        //Context.momApi = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
         Log.d("@", "Event in MainEvent: "+event.getId());
-        user = (User)getIntent().getSerializableExtra("user");
+        //user = (User)getIntent().getSerializableExtra("user");
+
         task = ((Button) findViewById(R.id.button6));
 
         setSupportActionBar((Toolbar) findViewById(R.id.MainEvent_toolbar));
         getSupportActionBar().setTitle(event.getName());
         getSupportActionBar().setSubtitle(event.getDate() + " - " + event.getPlace());
 
-        if (!event.canOrganise(user)) {
+        if (!event.canOrganise(Context.loggedUser)) {
             ((MenuItem)findViewById(R.id.MainEvent_writeStatus)).setVisible(false);
             task.setVisibility(View.GONE);
         }
@@ -62,7 +65,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
 
         refresh();
         
-        m.getEventStatuses(event.getId(), this);
+        Context.momApi.getEventStatuses(event.getId(), this);
 
         invitationsButton = (Button) findViewById(R.id.MainEvent_invitations);
         invitationsButton.setOnClickListener(this);
@@ -89,7 +92,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
     }
 
     private void refresh() {
-        m.getEventStatuses(event.getId(), this);
+        Context.momApi.getEventStatuses(event.getId(), this);
     }
 
     @Override
@@ -116,14 +119,14 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
             case R.id.MainEvent_invitations:
                 i = new Intent(this.getBaseContext(), InvitationList.class);
                 i.putExtra("event", event);
-                i.putExtra("user", user);
+                //i.putExtra("user", user);
                 startActivity(i);
                 break;
 
             case R.id.button6:
                 i = new Intent(this, TaskList.class);
                 i.putExtra("event", event);
-                i.putExtra("user", user);
+                //i.putExtra("user", user);
                 startActivityForResult(i, 2);
                 break;
         }
@@ -133,7 +136,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                m.createEventStatus(event, data.getExtras().getString("message"), this);
+                Context.momApi.createEventStatus(event, data.getExtras().getString("message"), this);
             }
         }
         refresh();

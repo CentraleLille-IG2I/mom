@@ -4,6 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+
+import MomApiPackage.MomDate;
 
 /**
  * Created by Robin on 02/06/2016.
@@ -12,20 +15,20 @@ public class TaskItem implements Serializable {
     private int id;
     private String name;
     private boolean completed;
-    private String dateCreated;
+    private MomDate dateCreated;
 
-    public TaskItem(int id, String name, boolean completed, String dateCreated) {
+    public TaskItem(int id, String name, boolean completed, String dateCreated) throws ParseException {
         this.id = id;
         this.name = name;
         this.completed = completed;
-        this.dateCreated = dateCreated;
+        this.dateCreated = new MomDate(dateCreated);
     }
 
-    public TaskItem(JSONObject json) throws JSONException {
+    public TaskItem(JSONObject json) throws JSONException, ParseException {
         id = json.getInt("pk");
         name = json.getString("name");
         completed = parseBoolean(json.getString("completed"));
-        dateCreated = json.getString("date_created");
+        dateCreated = new MomDate(json.getString("date_created"));
     }
 
     private boolean parseBoolean(String txt) {
@@ -35,12 +38,12 @@ public class TaskItem implements Serializable {
             return false;
     }
 
-    public String getDateCreated() {
+    public MomDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateCreated(String dateCreated) throws ParseException {
+        this.dateCreated.setDate(dateCreated);
     }
 
     public int getId() {

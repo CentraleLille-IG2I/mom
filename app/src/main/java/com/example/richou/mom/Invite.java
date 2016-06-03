@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import java.util.List;
 
 import MomApiPackage.Model.Event;
@@ -26,14 +28,14 @@ public class Invite extends AppCompatActivity implements View.OnClickListener, R
     private Button search, submit;
     private TextView name, message;
     private Spinner spinner;
-    private MomApi api;
+    //private MomApi api;
     private User user;
     private UserSearch us;
     private RankGetter rg;
 
     class UserSearch implements RequestCallback<User> {
         public void getUserByEmail() {
-            api.getUserByEmail(email.getText().toString(), this);
+            Context.momApi.getUserByEmail(email.getText().toString(), this);
         }
 
         @Override
@@ -56,7 +58,7 @@ public class Invite extends AppCompatActivity implements View.OnClickListener, R
 
     class RankGetter implements RequestCallback<List<Rank>> {
         public void getRanks() {
-            api.getEventRanks(event, this);
+            Context.momApi.getEventRanks(event, this);
         }
 
         public void onSuccess(List<Rank> ranks) {
@@ -83,7 +85,7 @@ public class Invite extends AppCompatActivity implements View.OnClickListener, R
         spinner = (Spinner) findViewById(R.id.Invite_rank_spinner);
         event = (Event) getIntent().getSerializableExtra("event");
 
-        api = new MomApi(this.getBaseContext());
+        //Context.momApi = new MomApi(this.getBaseContext());
         us = new UserSearch();
         rg = new RankGetter();
 
@@ -101,15 +103,15 @@ public class Invite extends AppCompatActivity implements View.OnClickListener, R
             case R.id.Invite_submit:
                 us.getUserByEmail();
                 if(user == null) {
-                    Toast.makeText(getBaseContext(), "Please select a valid user email address.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.Invite_errorSelectValidEmail, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Rank rank = (Rank) spinner.getSelectedItem();
                 if(rank == null) {
-                    Toast.makeText(getBaseContext(), "Please select a rank.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.Invite_errorSelectRank, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                api.createInvitation(event, user, rank, message.getText().toString(), this);
+                Context.momApi.createInvitation(event, user, rank, message.getText().toString(), this);
         }
     }
 

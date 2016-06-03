@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.richou.mom.global.Context;
+
 import MomApiPackage.Model.Event;
 import MomApiPackage.Model.Task;
 import MomApiPackage.MomApi;
@@ -19,7 +21,7 @@ import MomApiPackage.MomErrors;
 import MomApiPackage.RequestCallback;
 
 public class TaskItemCreate extends AppCompatActivity implements View.OnClickListener, RequestCallback<Integer> {
-    private MomApi m;
+    //private MomApi m;
     private EditText fieldName;
 
     private Event event;
@@ -29,9 +31,10 @@ public class TaskItemCreate extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_item_create);
+
         setSupportActionBar((Toolbar) findViewById(R.id.TaskItemCreate_toolbar));
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
         task = (Task)getIntent().getSerializableExtra("task");
@@ -57,7 +60,7 @@ public class TaskItemCreate extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(getBaseContext(), R.string.TaskItemCreate_empty, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                m.addTaskItem(task, name, this);
+                Context.momApi.addTaskItem(task, name, this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

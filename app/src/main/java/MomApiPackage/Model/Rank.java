@@ -4,6 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+
+import MomApiPackage.MomDate;
 
 /**
  * Created by Robin on 01/06/2016.
@@ -14,17 +17,17 @@ public class Rank implements Serializable{
     private boolean isOrganiser;
     private boolean isAdmin;
     private String description;
-    private String dateCreated;
+    private MomDate dateCreated;
     private String name;
     private int idEvent;
 
-    public Rank(JSONObject o) throws JSONException {
+    public Rank(JSONObject o) throws JSONException, ParseException {
         id = o.getInt("pk");
         isAttendee = parseBoolean(o.getString("is_attendee"));
         isOrganiser = parseBoolean(o.getString("is_organiser"));
         isAdmin = parseBoolean(o.getString("is_admin"));
         description = o.getString("description");
-        dateCreated = o.getString("date_created");
+        dateCreated = new MomDate(o.getString("date_created"));
         idEvent = o.getInt("pk_event");
         name = o.getString("name");
     }
@@ -76,12 +79,12 @@ public class Rank implements Serializable{
         this.description = description;
     }
 
-    public String getDateCreated() {
+    public MomDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateCreated(String dateCreated) throws ParseException {
+        this.dateCreated.setDate(dateCreated);
     }
 
     public int getIdEvent() {

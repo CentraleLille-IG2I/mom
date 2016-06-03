@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.*;
 import android.widget.ListView;
 
+import com.example.richou.mom.global.Context;
+
 import java.util.List;
 
 import MomApiPackage.Model.Event;
@@ -20,7 +22,7 @@ import MomApiPackage.MomErrors;
 public class InvitationList extends AppCompatActivity implements RequestCallback<List<Invitation>>, View.OnClickListener {
 
     private ListView listView;
-    private MomApi api;
+    //private MomApi api;
     private Event event;
     private FloatingActionButton fab;
 
@@ -32,7 +34,7 @@ public class InvitationList extends AppCompatActivity implements RequestCallback
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (ListView) findViewById(R.id.InvitationList_list);
         event = (Event) getIntent().getSerializableExtra("event");
-        api = new MomApi(this.getBaseContext());
+        //api = new MomApi(this.getBaseContext());
 
         toolbar.setSubtitle(event.getName());
         setSupportActionBar(toolbar);
@@ -41,7 +43,7 @@ public class InvitationList extends AppCompatActivity implements RequestCallback
         fab.setOnClickListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        api.getEventInvitations(event, this);
+        Context.momApi.getEventInvitations(event, this);
     }
 
     @Override
@@ -67,6 +69,6 @@ public class InvitationList extends AppCompatActivity implements RequestCallback
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        api.getEventInvitations(event, this);
+        Context.momApi.getEventInvitations(event, this);
     }
 }

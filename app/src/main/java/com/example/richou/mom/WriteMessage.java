@@ -21,15 +21,16 @@ public class WriteMessage extends AppCompatActivity  {
 
     private Event event;
     private EditText editText;
-    private MomApi m;
+    //private MomApi m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_message);
+
         setSupportActionBar((Toolbar) findViewById(R.id.WriteMessage_toolbar));
 
-        m = new MomApi(this);
+        //m = new MomApi(this);
 
         event = (Event)getIntent().getSerializableExtra("event");
 
@@ -51,7 +52,7 @@ public class WriteMessage extends AppCompatActivity  {
             case R.id.WriteMessage_send:
                 String message = editText.getText().toString();
                 if (message.length()==0) {
-                    Toast.makeText(getBaseContext(), "Can't send an empty message.", Toast.LENGTH_SHORT);
+                    Toast.makeText(getBaseContext(), R.string.WriteMessage_errorEmptyMessage, Toast.LENGTH_SHORT);
                     return true;
                 }
 
