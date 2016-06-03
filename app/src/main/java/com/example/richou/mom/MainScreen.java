@@ -2,13 +2,16 @@ package com.example.richou.mom;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import MomApiPackage.MomErrors;
 public class MainScreen extends AppCompatActivity implements RequestCallback<List<Event>>, AdapterView.OnItemClickListener, View.OnClickListener {
     private ListView lv;
     private Button bSettings;
-    private Button bCreate;
+    private FloatingActionButton bCreate;
 
     private User user;
 
@@ -39,15 +42,34 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
         m = new MomApi(this);
 
         lv = (ListView)findViewById(R.id.listView);
-        bSettings = (Button)findViewById(R.id.button2);
-        bCreate = (Button)findViewById(R.id.button4);
+        bCreate = (FloatingActionButton)findViewById(R.id.MainScreen_Fab);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.MainScreen_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.title_activity_main_screen);
+        toolbar.setSubtitle(user.getFullName());
 
         lv.setOnItemClickListener(this);
-        bSettings.setOnClickListener(this);
         bCreate.setOnClickListener(this);
 
         lv.setAdapter(new MainScreen_eventListAdapter(this, new ArrayList<Event>()));
         refresh();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_screen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.MainScreen_settings:
+                Log.d("@", "Settings button.");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void refresh() {
@@ -83,10 +105,7 @@ public class MainScreen extends AppCompatActivity implements RequestCallback<Lis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button2:
-                Log.d("@", "Settings Button unimplemented !");
-                break;
-            case R.id.button4:
+            case R.id.MainScreen_Fab:
                 //Log.d("@", "Create Button unimplemented !");
                 Intent i = new Intent(this, EventCreation.class);
                 startActivityForResult(i, 1);

@@ -3,8 +3,9 @@
 
     <!-- global -->
     <string name="MOM_SERVER">http://192.168.0.15:8000/api</string>
-    <string name="Global_Err_networkUnavailable">Network Unavailable !</string>
-    <string name="Global_Err_unknown">An Unknown error occured :(</string>
+    <string name="Global_Err_networkUnavailable">Network is unavailable.</string>
+    <string name="Global_Err_unknown">Something wrong happened.</string>
+    <string name="global_NIY">Not implemented yet!</string>
 
     <!-- Default -->
     <string name="app_name">Mom</string>
@@ -20,20 +21,24 @@
 
     <!-- Main Screen -->
     <string name="MainScreen_settings">Settings</string>
-    <string name="MainScreen_create">Create</string>
+    <string name="title_activity_main_screen">Events</string>
 
     <!-- Main Event -->
     <string name="MainEvent_tasks">Tasks %s</string>
     <string name="MainEvent_date">Date : %s</string>
     <string name="MainEvent_place">Place : %s</string>
     <string name="MainEvent_writeStatus">New status</string>
+    <string name="title_activity_main_event">Event</string>
 
     <!-- Event Creation -->
-    <string name="EventCreation_name">Event Name</string>
+    <string name="EventCreation_name">Event name</string>
     <string name="EventCreation_date">Date</string>
     <string name="EventCreation_place">Place</string>
     <string name="EventCreation_description">Description</string>
     <string name="EventCreation_create">Create</string>
+    <string name="title_activity_event_creation">New event</string>
+    <string name="EventCreation_empty">You can\'t send an event without a name!</string>
+    <string name="EventCreation_error">Something wrong happened.</string>
 
     <!-- Invitation view -->
     <string name="Invite_send">Send</string>
@@ -42,26 +47,39 @@
     <string name="TaskCreation_Create">Create</string>
     <string name="TaskCreation_taskName">Task name</string>
     <string name="TaskCreation_taskDescription">Description</string>
+    <string name="title_activity_task_creation">New task</string>
+    <string name="TaskCreation_empty">You cant\'t send a task with an empty name!</string>
+    <string name="TaskCreation_error">Something wrong happened.</string>
 
     <!-- WriteMessage -->
     <string name="WriteMessage_send">Post</string>
-    <string name="WriteMessage_eventStatusCreationSubTitle">New event status</string>
-    <string name="WriteMessage_taskCommentSubTitle">New task comment</string>
+    <string name="WriteMessage_eventStatusCreationSubTitle">New status</string>
+    <string name="WriteMessage_taskCommentSubTitle">New comment</string>
+    <string name="title_activity_write_message">Write message</string>
+    <string name="WriteMessage_hint">Write a message…</string>
 
     <!-- TaskGlobal -->
     <string name="TaskGlobal_nPersonnes">%d Personnes</string>
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
-    <!--<string name="TaskGlobal_subTasks">SubTasks (%d)</string>-->
-    <string name="TaskGlobal_createSubTask">New subtask</string>
-    <string name="TaskGlobal_comment">New comment</string>
+    <string name="TaskGlobal_createSubTask">Add a checklist item</string>
+    <string name="TaskGlobal_createComment">Add a comment</string>
+    <string name="title_activity_task_global">Task</string>
+    <string name="TaskGlobal_error">Something wrong happened.</string>
+    <string name="TaskGlobal_Comments">Comments</string>
+    <string name="TaskGlobal_Checklist">Checklist</string>
 
     <!-- TaskList -->
     <string name="TaskList_newTask">New task</string>
+    <string name="title_activity_task_list">Tasks</string>
+    <string name="TaskList_error">Couldn\'t retrieve tasks.</string>
 
     <!-- TaskItemCreate -->
-    <string name="TaskItemCreate_nameHint">Item Name</string>
-    <string name="TaskItemCreate_createButton">Create item</string>
+    <string name="TaskItemCreate_send">Create item</string>
+    <string name="title_activity_task_item_create">Add an item</string>
+    <string name="TaskItemCreate_Hint">Enter a checklist item…</string>
+    <string name="TaskItemCreate_error">Something wrong happened.</string>
+    <string name="TaskItemCreate_empty">You can\'t send an empty checklist item</string>
 
     <!-- Register -->
     <string name="Register_empty_email">Email cannot be empty</string>

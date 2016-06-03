@@ -2,13 +2,16 @@ package com.example.richou.mom;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,6 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
 
     private android.widget.ListView lv;
     private Button invitationsButton;
-    private Button writeStatus;
     private Button task;
 
     @Override
@@ -40,19 +42,17 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         event = (Event)getIntent().getSerializableExtra("event");
         Log.d("@", "Event in MainEvent: "+event.getId());
         user = (User)getIntent().getSerializableExtra("user");
-
-        ((TextView)findViewById(R.id.textView3)).setText(event.getName());
-        ((TextView)findViewById(R.id.textViewEventDate)).setText(String.format(getString(R.string.MainEvent_date), event.getDate()));
-        ((TextView)findViewById(R.id.textViewEventPlace)).setText(String.format(getString(R.string.MainEvent_place), event.getPlace()));
-
-        writeStatus = ((Button) findViewById(R.id.MainEvent_writeStatus));
         task = ((Button) findViewById(R.id.button6));
+
+        setSupportActionBar((Toolbar) findViewById(R.id.MainEvent_toolbar));
+        getSupportActionBar().setTitle(event.getName());
+        getSupportActionBar().setSubtitle(event.getDate() + " - " + event.getPlace());
+
         if (!event.canOrganise(user)) {
-            writeStatus.setVisibility(View.GONE);
+            ((MenuItem)findViewById(R.id.MainEvent_writeStatus)).setVisible(false);
             task.setVisibility(View.GONE);
         }
         else {
-            writeStatus.setOnClickListener(this);
             task.setOnClickListener(this);
         }
 
@@ -68,13 +68,28 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
         invitationsButton.setOnClickListener(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_event, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.MainEvent_writeStatus:
+                Intent i = new Intent(this, WriteMessage.class);
+                i.putExtra("event", event);
+                i.putExtra("subTitle", getString(R.string.WriteMessage_eventStatusCreationSubTitle));
+                startActivityForResult(i, 1);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void refresh() {
         m.getEventStatuses(event.getId(), this);
-        /*EfficientAdapter adp = (EfficientAdapter) QuickList.getAdapter();
-        adp.UpdateDataList(EfficientAdapter.MY_DATA);
-        adp.notifyDataSetChanged();
-        QuickList.invalidateViews();
-        QuickList.scrollBy(0, 0);*/
     }
 
     @Override
@@ -101,6 +116,7 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
             case R.id.MainEvent_invitations:
                 i = new Intent(this.getBaseContext(), InvitationList.class);
                 i.putExtra("event", event);
+                i.putExtra("user", user);
                 startActivity(i);
                 break;
 
@@ -110,12 +126,6 @@ public class MainEvent extends AppCompatActivity implements RequestCallback, Vie
                 i.putExtra("user", user);
                 startActivityForResult(i, 2);
                 break;
-
-            case R.id.MainEvent_writeStatus:
-                i = new Intent(this, WriteMessage.class);
-                i.putExtra("event", event);
-                i.putExtra("subTitle", getString(R.string.WriteMessage_eventStatusCreationSubTitle));
-                startActivityForResult(i, 1);
         }
     }
 

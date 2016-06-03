@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +33,6 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
     private ListView lvComment;
     private Button bListPeople;
     private Button bJoinQuit;
-    private Button bAddSubTask;
-    private Button bComment;
 
     private Event event;
     private User user;
@@ -41,6 +44,7 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_global);
+        setSupportActionBar((Toolbar) findViewById(R.id.TaskGlobal_toolbar));
 
         m = new MomApi(this);
 
@@ -48,27 +52,49 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
         user = (User)getIntent().getSerializableExtra("user");
         task = (Task)getIntent().getSerializableExtra("task");
 
-        ((TextView)findViewById(R.id.textView3)).setText(event.getName());
+        getSupportActionBar().setTitle(event.getName());
+        getSupportActionBar().setSubtitle(task.getName());
 
         lvSubTask = (ListView)findViewById(R.id.TaskGlobal_listViewSubTask);
         lvComment = (ListView)findViewById(R.id.TaskGLobal_listViewComment);
         bListPeople = (Button)findViewById(R.id.button2);
         bJoinQuit = (Button)findViewById(R.id.button4);
-        bAddSubTask = (Button)findViewById(R.id.TaskGlobal_buttonCreateSubTask);
-        bComment = (Button)findViewById(R.id.TaskGlobal_buttonComment);
 
         lvSubTask.setAdapter(new TaskGlobal_subTaskAdapter(this, new ArrayList<TaskItem>()));
         lvComment.setAdapter(new TaskGlobal_commentAdapter(this, new ArrayList<TaskComment>()));
 
-
-
         bListPeople.setOnClickListener(this);
         bJoinQuit.setOnClickListener(this);
-        bAddSubTask.setOnClickListener(this);
-        bComment.setOnClickListener(this);
 
         refresh();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_task_global, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.TaskGlobal_addTaskItem: {
+                Intent i = new Intent(this, TaskItemCreate.class);
+                i.putExtra("event", event);
+                i.putExtra("task", task);
+                startActivityForResult(i, 2);
+            }
+                return true;
+            case R.id.TaskGlobal_addComment: {
+                Intent i = new Intent(this, WriteMessage.class);
+                i.putExtra("event", event);
+                i.putExtra("subTitle", getString(R.string.WriteMessage_taskCommentSubTitle));
+                startActivityForResult(i, 1);
+            }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void userInTask(Task t) {
@@ -128,35 +154,23 @@ public class TaskGlobal extends AppCompatActivity implements RequestCallback, Vi
 
     @Override
     public void onError(MomErrors err) {
-        Log.d("@", "TaskGlobal get some errors, need popup");
+        Toast.makeText(getBaseContext(), R.string.TaskGlobal_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
-        if (v==bAddSubTask) {
-            Intent i = new Intent(this, TaskItemCreate.class);
-            i.putExtra("event", event);
-            i.putExtra("task", task);
-            startActivityForResult(i, 2);
-        }
-        else if (v == bComment) {
-            Intent i = new Intent(this, WriteMessage.class);
-            i.putExtra("event", event);
-            i.putExtra("subTitle", getString(R.string.WriteMessage_taskCommentSubTitle));
-            startActivityForResult(i, 1);
-
-        }
-        else if (v == bJoinQuit) {
+        switch(v.getId()) {
+            case R.id.button4:
             if (userInTask==1) {
-                Log.d("@", "quit functionnality unimplemented yet --> need warning popup");
+                Toast.makeText(getBaseContext(), R.string.global_NIY, Toast.LENGTH_SHORT).show();
+
             }
             else if (userInTask==0) {
                 m.addUserInTask(user, task, this);
             }
-
-        }
-        else if (v == bListPeople) {
-
+            break;
+            case R.id.button2:
+            default:
         }
     }
 
