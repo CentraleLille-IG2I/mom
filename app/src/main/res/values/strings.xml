@@ -5,6 +5,7 @@
     <string name="MOM_SERVER">http://192.168.0.15:8000/api</string>
     <string name="Global_Err_networkUnavailable">Network is unavailable.</string>
     <string name="Global_Err_unknown">Something wrong happened.</string>
+    <string name="global_NIY">Not implemented yet!</string>
 
     <!-- Default -->
     <string name="app_name">Mom</string>
@@ -55,9 +56,12 @@
     <string name="TaskGlobal_nPersonnes">%d Personnes</string>
     <string name="TaskGlobal_join">Join</string>
     <string name="TaskGlobal_quit">Quit</string>
-    <!--<string name="TaskGlobal_subTasks">SubTasks (%d)</string>-->
     <string name="TaskGlobal_createSubTask">New subtask</string>
-    <string name="TaskGlobal_comment">New comment</string>
+    <string name="TaskGlobal_createComment">New comment</string>
+    <string name="title_activity_task_global">Task</string>
+    <string name="TaskGlobal_error">Something wrong happened.</string>
+    <string name="TaskGlobal_Comments">Comments</string>
+    <string name="TaskGlobal_Checklist">Checklist</string>
 
     <!-- TaskList -->
     <string name="TaskList_newTask">New task</string>

@@ -31,7 +31,10 @@
             android:label="@string/title_activity_write_message"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".TaskGlobal" />
+        <activity android:name=".TaskGlobal"
+            android:label="@string/title_activity_task_global"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".EventCreation" />
         <activity android:name=".Register" />
         <activity
