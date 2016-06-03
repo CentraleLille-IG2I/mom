@@ -47,7 +47,9 @@
     <!-- WriteMessage -->
     <string name="WriteMessage_send">Post</string>
     <string name="WriteMessage_eventStatusCreationSubTitle">New status</string>
-    <string name="WriteMessage_taskCommentSubTitle">New task comment</string>
+    <string name="WriteMessage_taskCommentSubTitle">New comment</string>
+    <string name="title_activity_write_message">Write message</string>
+    <string name="WriteMessage_hint">Write a message...</string>
 
     <!-- TaskGlobal -->
     <string name="TaskGlobal_nPersonnes">%d Personnes</string>
